@@ -3,7 +3,8 @@
  * The template for displaying course analyses
  */
 
-$edit = true;
+if(isset($_GET['edit'])) { $edit = true; } else { $edit = false; }
+
 
 get_header(); ?>
 
@@ -39,9 +40,9 @@ get_header(); ?>
 
 					<h3>Description of Course Goals and Curriculum</h3>
 					<?php
-					if($edit) { ?>
-					   <textarea name='goals'id='goals'><?php echo do_shortcode($meta['goals'][0]); ?></textarea>
-					<?php } 
+					if($edit) { 
+					    wp_editor( do_shortcode($meta['goals'][0]), 'goals', $settings = array() );
+					} 
 					else {
 					?>
 					<?php echo do_shortcode($meta['goals'][0]); ?>
@@ -50,16 +51,52 @@ get_header(); ?>
 
 
 					<h3>Learning From Classroom Instruction</h3>
+					<?php
+					if($edit) { 
+					    wp_editor( do_shortcode($meta['instruction'][0]), 'instruction', $settings = array() );
+					} 
+					else {
+					?>
 					<?php echo do_shortcode($meta['instruction'][0]); ?>
+					<?php } ?>
 
 					<h3>Learning For and From Assignments</h3>
+					<?php
+					if($edit) { 
+					    wp_editor( do_shortcode($meta['assignments'][0]), 'assignments', $settings = array() );
+					} 
+					else {
+					?>
 					<?php echo do_shortcode($meta['assignments'][0]); ?>
+					<?php } ?>
 
 					<h3>External Resources</h3>
+					<?php
+					if($edit) { 
+					    wp_editor( do_shortcode($meta['resources'][0]), 'resources', $settings = array() );
+					} 
+					else {
+					?>
 					<?php echo do_shortcode($meta['resources'][0]); ?>
+					<?php } ?>
 
 					<h3>What Students Should Know About This Course For Purposes Of Course Selection</h3>
+					<?php
+					if($edit) { 
+					    wp_editor( do_shortcode($meta['shouldknow'][0]), 'shouldknow', $settings = array() );
+					} 
+					else {
+					?>
 					<?php echo do_shortcode($meta['shouldknow'][0]); ?>
+					<?php } ?>
+
+
+					<?php
+					if($edit) { ?>
+					<p>&nbsp;</p>
+					   <input type="submit" value="Submit"/>
+					<?php } ?>
+
 
 				</div><!-- .entry-content -->
 

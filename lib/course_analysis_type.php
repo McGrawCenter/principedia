@@ -6,8 +6,8 @@ function create_ca_posttype() {
 	// CPT Options
 		array(
 			'labels' => array(
-				'name' => __( 'Course Analyses' ),
-				'singular_name' => __( 'Course Analysis' ),
+				'name' => __( 'Analyses' ),
+				'singular_name' => __( 'Analysis' ),
 				'edit_item'     => __( 'Edit Course Analysis' ),
 				'new_item'      => __( 'New Course Analysis' ),
 				'add_new_item'      => __( 'Add New Course Analysis' ),
@@ -17,7 +17,7 @@ function create_ca_posttype() {
 			'public' => true,
 			'taxonomies' => array('categories'),
 			'show_in_menu' => true,
-			'menu_position' => 2,
+			'menu_position' => 6,
 			'has_archive' => true,
 			'rewrite' => array('slug' => 'principedia'),
 		)
@@ -210,6 +210,69 @@ function create_principedia_taxonomy() {
 			'rewrite'               => array( 'slug' => 'departments' ),
 		)
 	);
+
+
+	// IF JSON IS A VARIABLE IN THE URL, OUTPUT JSON LIST OF DEPARTMENTS
+
+	if(isset($_GET['json']) && $_GET['json'] == 'departments') {
+	  $taxonomy = 'department';
+	  $tax_terms = get_terms($taxonomy);
+	  die(json_encode($tax_terms));
+	}
+
+	if(isset($_GET['json']) && $_GET['json'] == 'courses') {
+
+		$dept = $_GET['dept'];
+
+		$returnArr = array();
+		// first we need a list of posts for a specific dept
+
+		$posts = get_posts(array(
+		    'post_type' => 'principedia',
+		    'tax_query' => array(
+			array(
+			'taxonomy' => 'department',
+			'field' => 'name',
+			'terms' => $dept)
+		    ))
+		);
+
+		// then we need to loop through and extract the course ids
+
+		foreach($posts as $key=>$post) {
+		  $returnArr[$key] = new StdClass();
+		  $meta = get_post_meta($post->ID);
+		  $returnArr[$key]->course = $meta['principedia_course'][0];
+		}
+
+		die(json_encode($returnArr));
+	}
+
+
+
+	if(isset($_GET['json']) && $_GET['json'] == 'analyses') {
+
+		$course = $_GET['courseid'];
+
+		$returnArr = array();
+		// get a list of all the principedia type posts with $course as the principedia_course
+
+		$posts = get_posts(array(
+		    'post_type' => 'principedia',
+		    'meta_key'	=> 'principedia_course',
+		    'meta_value'=> $course
+		    )
+		);
+
+
+		die(json_encode($posts));
+	}
+
+
+
+
+
+
 }
 
 

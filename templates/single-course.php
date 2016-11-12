@@ -29,6 +29,7 @@ get_header(); ?>
 					echo "<div>Instructor: ".$meta['principedia_instructor'][0]."</div>";
 					echo "<div>Year: ".$meta['principedia_year'][0]."</div>";
 					?>
+				THIS IS A COURSE PAGE
 				</header><!-- .entry-header -->
 
 				<div class="entry-content">

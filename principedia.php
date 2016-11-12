@@ -9,6 +9,15 @@
 
 
 
+function principedia_scripts(){
+    wp_register_script( 'principedia', plugin_dir_url( __FILE__ ) . 'js/principedia.js', array( 'jquery' ));
+    wp_enqueue_script( 'principedia' );
+}
+add_action('wp_enqueue_scripts', 'principedia_scripts');
+
+
+
+
 /*
 http://www.wpbeginner.com/wp-tutorials/how-to-create-custom-post-types-in-wordpress/
 */
@@ -17,7 +26,8 @@ $dir = plugin_dir_path( __FILE__ );
 
 include($dir.'lib/course_analysis_type.php');
 include($dir.'lib/learning_strategy_type.php');
-include($dir.'lib/course_type.php');
+// not used:
+//include($dir.'lib/course_type.php');
 include($dir.'lib/shortcodes.php');
 
 

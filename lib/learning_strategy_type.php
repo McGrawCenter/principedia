@@ -6,8 +6,8 @@ function create_strategy_posttype() {
 	// CPT Options
 		array(
 			'labels' => array(
-				'name' => __( 'Learning Stategies' ),
-				'singular_name' => __( 'Learning Stategy' ),
+				'name' => __( 'Stategies' ),
+				'singular_name' => __( 'Stategy' ),
 				'edit_item'     => __( 'Edit Learning Stategy' ),
 				'new_item'      => __( 'New Learning Stategy' ),
 				'add_new_item'      => __( 'Add New Learning Stategy' ),
@@ -17,7 +17,7 @@ function create_strategy_posttype() {
 			'public' => true,
 			'taxonomies' => array('category'),
 			'show_in_menu' => true,
-			'menu_position' => 3,
+			'menu_position' => 8,
 			'has_archive' => true,
 			'rewrite' => array('slug' => 'strategies'),
 		)

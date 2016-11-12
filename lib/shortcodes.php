@@ -108,28 +108,29 @@ add_shortcode( 'learningstrategy_link' , 'insert_learningstrategy_link' );
 
 
 /* *********************************************
-*
+*  SHORTCODE TO INSERT SERIES OF DROPDOWNS TO VIEW COURSE ANALYSES
 ********************************************* */
 
 
 function insert_course_analysis_nav() {
 
-$html .= "<label for='selectcourse'>Select Course</label>";
-$html .= "<select name='selectcourse'>";
-$html .= "  <option>AAA123</option>";
-$html .= "  <option>BBB456</option>";
-$html .= "  <option>CCC345</option>";
-$html .= "  <option>DDD789</option>";
-$html .= "</select>\n";
 
 $html .= "<label for='selectcourse'>Select Course</label>";
 $html .= "<select name='selectcourse'>";
-$html .= "  <option>AAA123</option>";
-$html .= "  <option>BBB456</option>";
-$html .= "  <option>CCC345</option>";
-$html .= "  <option>DDD789</option>";
+$html .= "  <option></option>";
+
+if($departments = get_terms('department')) {
+  foreach($departments as $dept) {
+    $html .= "  <option class='dept-choice' deptid='{$dept->term_id}'>{$dept->name}</option>";
+  }
+}
 $html .= "</select>\n";
 
+$html .= "<div id='course-choice-dropdown'></div>\n";
+$html .= "<div id='results'></div>\n";
+
+
+// based on the selection above another select dropdown is inserted by javascript
 
 return $html;
 

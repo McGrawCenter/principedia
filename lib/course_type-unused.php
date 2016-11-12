@@ -2,7 +2,7 @@
 // Our custom post type function
 function create_course_posttype() {
 
-	register_post_type( 'principedia_course',
+	register_post_type( 'course',
 	// CPT Options
 		array(
 			'labels' => array(
@@ -17,7 +17,7 @@ function create_course_posttype() {
 			'public' => true,
 			'taxonomies' => array('categories'),
 			'show_in_menu' => true,
-			'menu_position' => 3,
+			'menu_position' => 7,
 			'has_archive' => true,
 			'rewrite' => array('slug' => 'course'),
 		)
@@ -36,7 +36,7 @@ add_action( 'init', 'create_course_posttype' );
  */
 function add_course_meta_boxes() {
 
-	add_meta_box('principedia_title_meta', 'Course Information', 'courses_title_meta', "principedia_course", "normal", "low");
+	add_meta_box('principedia_title_meta', 'Course Information', 'courses_title_meta', "course", "normal", "low");
 }
 /**
  * Create content to be added to title metabox
@@ -61,27 +61,36 @@ function courses_title_meta() {
  * Save custom field data when creating/updating posts
  */
 function save_course_custom_fields(){
-/*
+
   global $post;
 
   if ( $post )
   {
 
-    update_post_meta($post->ID, "principedia_dept", @$_POST['principedia_dept']);
-    update_post_meta($post->ID, "principedia_course", @$_POST['principedia_course']);
-    update_post_meta($post->ID, "principedia_instructor", @$_POST['principedia_instructor']);
-    update_post_meta($post->ID, "principedia_year", @$_POST['principedia_year']);
+    update_post_meta($post->ID, "course_registrar_id", @$_POST['course_registrar_id']);
 
-    update_post_meta($post->ID, "goals", @$_POST["goals"]);
-    update_post_meta($post->ID, "instruction", @$_POST["instruction"]);
-    update_post_meta($post->ID, "assignments", @$_POST["assignments"]);
-    update_post_meta($post->ID, "resources", @$_POST["resources"]);
-    update_post_meta($post->ID, "shouldknow", @$_POST["shouldknow"]);
   }
-*/
+
 }
 add_action( 'admin_init', 'add_course_meta_boxes' );
 add_action( 'save_post', 'save_course_custom_fields' );
+
+
+/**
+ * If page is of Course Type, add list of related courses analyses after the content
+ */
+
+
+function principedia_add_ca_list( $content ) {
+    if(get_post_type() == 'course') {
+      $content .= "<div id='ca_list'>GENERATE LIST OF RELATED COURSE ANALYSES HERE</div>";
+    }
+    return $content;
+}
+
+
+add_filter( 'the_content', 'principedia_add_ca_list' );
+
 
 
 
