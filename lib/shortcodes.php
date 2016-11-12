@@ -115,7 +115,7 @@ add_shortcode( 'learningstrategy_link' , 'insert_learningstrategy_link' );
 function insert_course_analysis_nav() {
 
 
-$html .= "<label for='selectcourse'>Select Course</label>";
+$html .= "<label for='selectcourse'>Select Department</label>";
 $html .= "<select name='selectcourse'>";
 $html .= "  <option></option>";
 

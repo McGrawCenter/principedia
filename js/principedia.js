@@ -34,7 +34,7 @@ jQuery( document ).ready(function() {
     jQuery.each(jQuery.parseJSON(remote), function(index,value) {
          //jQuery( "<option>"+value.course+"</option>" ).appendTo( '#course-select' );
         console.log(value);
-        jQuery('#results').append('<div><a href="'+value.guid+'">'+value.post_title+'</a></div>')
+        jQuery('#results').append('<div><a href="'+value.guid+'">'+value.post_title+'</a> '+value.meta.principedia_course+'  '+value.meta.principedia_year+' '+value.meta.principedia_instructor+'</div>')
     });
   }
 

@@ -18,9 +18,9 @@ add_action('wp_enqueue_scripts', 'principedia_scripts');
 
 
 
-/*
-http://www.wpbeginner.com/wp-tutorials/how-to-create-custom-post-types-in-wordpress/
-*/
+/****************************************************
+* Add the custom types
+****************************************************/
 
 $dir = plugin_dir_path( __FILE__ );
 

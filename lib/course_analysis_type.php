@@ -263,7 +263,9 @@ function create_principedia_taxonomy() {
 		    'meta_value'=> $course
 		    )
 		);
-
+		foreach($posts as &$post) {
+		  $post->meta = get_post_meta($post->ID);
+		}
 
 		die(json_encode($posts));
 	}
