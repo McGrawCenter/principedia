@@ -153,10 +153,11 @@ function add_principedia_shoul_box()
 function save_principedia_custom_fields(){
   global $post;
 
-  if ( $post )
+  if ( $post && isset($_POST['principedia_course']) )
   {
 
     // if a course page does not exist for this course ID, then create it.
+
     $courseid = $_POST['principedia_course'];
     if(!post_exists( $courseid )) {
 
@@ -172,6 +173,7 @@ function save_principedia_custom_fields(){
 	    );
 	    $post_id = wp_insert_post($new_post);
     }
+
     // END - if a course page does not exist for this course ID, then create it.
 
     update_post_meta($post->ID, "principedia_dept", @$_POST['principedia_dept']);
@@ -241,7 +243,10 @@ function create_principedia_taxonomy() {
 	);
 
 
-	// IF JSON IS A VARIABLE IN THE URL, OUTPUT JSON LIST OF DEPARTMENTS
+
+
+
+// OUTPUT JSON LIST OF DEPARTMENTS
 
 	if(isset($_GET['json']) && $_GET['json'] == 'departments') {
 	  $taxonomy = 'department';
@@ -279,6 +284,10 @@ function create_principedia_taxonomy() {
 
 
 
+
+
+
+// OUTPUT JSON LIST OF ANALYSES BASED ON COURSE ID
 	if(isset($_GET['json']) && $_GET['json'] == 'analyses') {
 
 		$course = $_GET['courseid'];

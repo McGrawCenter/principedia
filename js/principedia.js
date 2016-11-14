@@ -45,7 +45,7 @@ jQuery( document ).ready(function() {
     var remote;
     jQuery.ajax({
         type: "GET",
-        url: '/wordpress/?json=courses&dept='+deptname,
+        url: '?json=courses&dept='+deptname,
         async: false,
         success : function(data) {
             remote = data;
