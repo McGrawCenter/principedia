@@ -41,10 +41,12 @@ add_shortcode( 'dept_list' , 'insert_department_list' );
 
 
 /* *********************************************
-*
+*  Shortcode to insert a list of all the learning strategies
 ********************************************* */
 
 function insert_strategies_list() {
+
+
 
 	require_once(ABSPATH . "wp-admin/includes/taxonomy.php");
 

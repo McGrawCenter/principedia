@@ -1,4 +1,8 @@
 <?php
+
+
+
+
 // Our custom post type function
 function create_ca_posttype() {
 
@@ -23,7 +27,7 @@ function create_ca_posttype() {
 		)
 	);
 }
-// Hooking up our function to theme setup
+
 add_action( 'init', 'create_ca_posttype' );
 
 
@@ -31,9 +35,9 @@ add_action( 'init', 'create_ca_posttype' );
 
 
 
-/**
+/******************************************
  * Add principedia custom fields
- */
+ ******************************************/
 function add_principedia_meta_boxes() {
 
 	add_meta_box('principedia_title_meta', 'Course Information', 'principedia_title_meta', "principedia", "normal", "low");
@@ -44,9 +48,11 @@ function add_principedia_meta_boxes() {
 	add_meta_box("principedia_resou_meta", "External Resources", "add_principedia_resou_box", "principedia", "normal", "low");
 	add_meta_box("principedia_shoul_meta", "What Students Should Know About This Course For Purposes of Course Selection", "add_principedia_shoul_box", "principedia", "normal", "low");
 }
-/**
- * Create content to be added to title metabox
- */
+
+
+/******************************************
+ * Create Course Information field area
+ ******************************************/
 function principedia_title_meta() {
 	global $post;
 	$custom = get_post_custom( $post->ID );
@@ -81,9 +87,9 @@ function principedia_title_meta() {
 }
 
 
-/**
- * Create content to be added to goals metabox
- */
+/******************************************
+ * Create goals field area
+ ******************************************/
 function add_principedia_goals_box()
 {
 	global $post;
@@ -94,22 +100,22 @@ function add_principedia_goals_box()
 	<?php
 
 }
-/**
- * Create content to be added to instructor metabox
- */
+/******************************************
+ * Create 'Learning from classroom instruction' area
+ ******************************************/
 function add_principedia_instr_box()
 {
 	global $post;
 	$custom = get_post_custom( $post->ID );
 	if(isset($custom["instruction"][0])) { $instruction = $custom["instruction"][0]; } else { $instruction = ""; }
 	?>
-	<p><?php wp_editor( $instruction, "instruction", $settings = array() ); ?></p>
+	<p><?php wp_editor( $instruction, "instruction", $settings = array( 'tinymce' => true ) ); ?></p>
 	<?php
 
 }
-/**
- * Create content to be added to assignments metabox
- */
+/******************************************
+ * Create 'Learning for and from assignments and assessments' area
+ ******************************************/
 function add_principedia_assig_box()
 {
 	global $post;
@@ -119,9 +125,9 @@ function add_principedia_assig_box()
 	<p><?php wp_editor( $assignments, "assignments", $settings = array() ); ?></p>
 	<?php
 }
-/**
- * Create content to be added to resources metabox
- */
+/******************************************
+ * Create 'External Resources' area
+ ******************************************/
 function add_principedia_resou_box()
 {
 	global $post;
@@ -131,9 +137,9 @@ function add_principedia_resou_box()
 	<p><?php wp_editor( $resources, "resources", $settings = array() ); ?></p>
 	<?php
 }
-/**
- * Create content to be added to should know metabox
- */
+/******************************************
+ * Create 'What students should know...' area
+ ******************************************/
 function add_principedia_shoul_box()
 {
 	global $post;
@@ -266,6 +272,8 @@ function create_principedia_taxonomy() {
 		    'tax_query' => array(
 			array(
 			'taxonomy' => 'department',
+			'orderby' => 'title',
+			'order' => 'ASC',
 			'field' => 'name',
 			'terms' => $dept)
 		    ))
