@@ -1,6 +1,6 @@
 <?php
 /*
-	Plugin Name: Principedia This is the one
+	Plugin Name: Principedia v2
 	Plugin URI:
 	Description: Create an instance of Principedia
 	Version: 1.0
@@ -26,8 +26,7 @@ $dir = plugin_dir_path( __FILE__ );
 
 include($dir.'lib/course_analysis_type.php');
 include($dir.'lib/learning_strategy_type.php');
-// not used:
-//include($dir.'lib/course_type.php');
+include($dir.'lib/course_type.php');
 include($dir.'lib/shortcodes.php');
 
 

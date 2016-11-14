@@ -52,6 +52,7 @@ function principedia_title_meta() {
 	$custom = get_post_custom( $post->ID );
 	if(isset($custom["principedia_course"][0])) 		{ $course = $custom["principedia_course"][0]; } else { $course = ""; }
 	if(isset($custom["principedia_instructor"][0])) 	{ $instructor = $custom["principedia_instructor"][0]; } else { $instructor = ""; }
+	if(isset($custom["principedia_semester"][0])) 		{ $semester = $custom["principedia_semester"][0]; } else { $semester = ""; }
 	if(isset($custom["principedia_year"][0])) 		{ $year = $custom["principedia_year"][0]; } else { $year = ""; }
    ?>
 
@@ -60,13 +61,22 @@ function principedia_title_meta() {
     <input id="principedia_course" type="text" autocomplete="off" spellcheck="true" value="<?php echo $course; ?>" size="30" name="principedia_course" style="width:100%;">
   </p>
   <p>
-    <label for="principedia_instructor">Instructor:</label>
-    <input id="principedia_instructor" type="text" autocomplete="off" spellcheck="true" value="<?php echo $instructor; ?>" size="30" name="principedia_instructor" style="width:100%;">
+    <label for="principedia_semester">Semester:</label>
+    <select id="principedia_semester" name="principedia_semester">
+      <option value="F"<?php if($semester=='F') {echo "selected";} ?>>Fall</option>
+      <option value="S"<?php if($semester=='F') {echo "selected";} ?>>Spring</option>
+      <option value="SU"<?php if($semester=='F') {echo "selected";} ?>>Summer</option>
+    </select>
   </p>
   <p>
     <label for="principedia_year">Year:</label>
     <input id="principedia_year" type="text" autocomplete="off" spellcheck="true" value="<?php echo $year; ?>" size="30" name="principedia_year" style="width:100%;">
   </p>
+  <p>
+    <label for="principedia_instructor">Instructor:</label>
+    <input id="principedia_instructor" type="text" autocomplete="off" spellcheck="true" value="<?php echo $instructor; ?>" size="30" name="principedia_instructor" style="width:100%;">
+  </p>
+
    <?php
 }
 
@@ -146,10 +156,29 @@ function save_principedia_custom_fields(){
   if ( $post )
   {
 
+    // if a course page does not exist for this course ID, then create it.
+    $courseid = $_POST['principedia_course'];
+    if(!post_exists( $courseid )) {
+
+
+	    $new_post = array(
+		'post_title' => $courseid,
+		'post_content' => '',
+		'post_status' => 'publish',
+		'post_date' => date('Y-m-d H:i:s'),
+		'post_author' => '',
+		'post_type' => 'course',
+		'post_category' => array(0)
+	    );
+	    $post_id = wp_insert_post($new_post);
+    }
+    // END - if a course page does not exist for this course ID, then create it.
+
     update_post_meta($post->ID, "principedia_dept", @$_POST['principedia_dept']);
     update_post_meta($post->ID, "principedia_course", @$_POST['principedia_course']);
     update_post_meta($post->ID, "principedia_instructor", @$_POST['principedia_instructor']);
     update_post_meta($post->ID, "principedia_year", @$_POST['principedia_year']);
+    update_post_meta($post->ID, "principedia_semester", @$_POST['principedia_semester']);
 
     update_post_meta($post->ID, "goals", @$_POST["goals"]);
     update_post_meta($post->ID, "instruction", @$_POST["instruction"]);
