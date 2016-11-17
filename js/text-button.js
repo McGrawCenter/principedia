@@ -11,26 +11,30 @@
 				editor.windowManager.open({
 					// Modal settings
 					title: 'Link to Learning Strategy',
-					width: jQuery( window ).width() * 0.7,
+					//width: jQuery( window ).width() * 0.7,
 					// minus head and foot of dialog box
-					height: (jQuery( window ).height() - 36 - 50) * 0.7,
+					//height: (jQuery( window ).height() - 36 - 50) * 0.7,
+					width: 500,
+					height:300,
+					
 					inline: 1,
 					id: 'principedia-insert-dialog',
 					buttons: [{
-						text: 'Insert',
+						text: 'Insert Learning Strategy Link',
 						id: 'principedia-button-insert',
 						class: 'insert',
 						onclick: function( e ) {
-							insertShortcode();
-							alert('blah');
+							//insertShortcode();
+							//alert('blah');
 							editor.insertContent(' Hello ');
 						},
-					},
-					{
+					    },
+					    {
 						text: 'Cancel',
 						id: 'principedia-button-cancel',
 						onclick: 'close'
-					}],
+					    }
+					],
 				});
 
 				appendInsertDialog();

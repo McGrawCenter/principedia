@@ -82,8 +82,17 @@ add_action( 'save_post', 'save_course_custom_fields' );
 
 
 function principedia_add_ca_list( $content ) {
+
     if(get_post_type() == 'course') {
-      $content .= "<div id='ca_list'>GENERATE LIST OF RELATED COURSE ANALYSES HERE</div>";
+        $content .= "<h4>Associated course analyses</h4>";
+	$content .= '<ul>';
+	$args =  array( 'numberposts'	=> -1,'post_type' => 'principedia','meta_key' => 'principedia_course','meta_value' => 'ANT 335' );
+	$analyses =  get_posts($args);
+	foreach($analyses as $analysis) {
+	   $content .=  "<li><a href='{$analysis->guid}'>{$analysis->post_title}</a></li>";
+	}
+	$content .=  '</ul>';
+
     }
     return $content;
 }
@@ -93,5 +102,119 @@ add_filter( 'the_content', 'principedia_add_ca_list' );
 
 
 
+
+
+/************************* CREATE DEPARTMENTS TAXONOMY *********************************/
+
+
+add_action( 'init', 'create_course_dept_taxonomy' );
+
+function create_course_dept_taxonomy() {
+
+
+	$labels = array(
+		'name'                       => _x( 'Departments', 'taxonomy general name' ),
+		'singular_name'              => _x( 'Department', 'taxonomy singular name' ),
+		'search_items'               => __( 'Search Departments' ),
+		'popular_items'              => __( 'Popular Departments' ),
+		'all_items'                  => __( 'All Departments' ),
+		'parent_item'                => null,
+		'parent_item_colon'          => null,
+		'edit_item'                  => __( 'Edit Department' ),
+		'update_item'                => __( 'Update Department' ),
+		'add_new_item'               => __( 'Add New Department' ),
+		'new_item_name'              => __( 'New Department Name' ),
+		'separate_items_with_commas' => __( 'Separate departments with commas' ),
+		'add_or_remove_items'        => __( 'Add or remove departments' ),
+		'choose_from_most_used'      => __( 'Choose from the most used departments' ),
+		'not_found'                  => __( 'No departments found.' ),
+		'menu_name'                  => __( 'Departments' ),
+	);
+
+
+
+	register_taxonomy(
+		'department',
+		'course',
+		array(
+			'hierarchical'          => true,
+			'labels'                => $labels,
+			'show_ui'               => true,
+			'show_admin_column'     => true,
+			'update_count_callback' => '_update_post_term_count',
+			'query_var'             => true,
+			'rewrite'               => array( 'slug' => 'departments' ),
+		)
+	);
+
+
+
+
+
+// OUTPUT JSON LIST OF DEPARTMENTS
+
+	if(isset($_GET['json']) && $_GET['json'] == 'departments') {
+	  $taxonomy = 'department';
+	  $tax_terms = get_terms($taxonomy);
+	  die(json_encode($tax_terms));
+	}
+
+	if(isset($_GET['json']) && $_GET['json'] == 'courses') {
+
+		$dept = $_GET['dept'];
+
+		$returnArr = array();
+		// first we need a list of posts for a specific dept
+
+		$posts = get_posts(array(
+		    'post_type' => 'principedia',
+		    'tax_query' => array(
+			array(
+			'taxonomy' => 'department',
+			'orderby' => 'title',
+			'order' => 'ASC',
+			'field' => 'name',
+			'terms' => $dept)
+		    ))
+		);
+
+		// then we need to loop through and extract the course ids
+
+		foreach($posts as $key=>$post) {
+		  $returnArr[$key] = new StdClass();
+		  $meta = get_post_meta($post->ID);
+		  $returnArr[$key]->course = $meta['principedia_course'][0];
+		}
+
+		die(json_encode($returnArr));
+	}
+
+
+
+
+
+
+// OUTPUT JSON LIST OF ANALYSES BASED ON COURSE ID
+	if(isset($_GET['json']) && $_GET['json'] == 'analyses') {
+
+		$course = $_GET['courseid'];
+
+		$returnArr = array();
+		// get a list of all the principedia type posts with $course as the principedia_course
+
+		$posts = get_posts(array(
+		    'post_type' => 'principedia',
+		    'meta_key'	=> 'principedia_course',
+		    'meta_value'=> $course
+		    )
+		);
+		foreach($posts as &$post) {
+		  $post->meta = get_post_meta($post->ID);
+		}
+
+		die(json_encode($posts));
+	}
+
+}
 
 ?>

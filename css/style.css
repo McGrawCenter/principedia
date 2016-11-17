@@ -4,3 +4,16 @@
 #learning_strategies_list {
   margin:10px 0;
 }
+
+ul ul li {
+  margin-left:30px;
+}
+
+ul ul ul li {
+  margin-left:60px;
+}
+
+.ca_dropdown_label {
+  display:inline-block;
+  width:200px;
+}

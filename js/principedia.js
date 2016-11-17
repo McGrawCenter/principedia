@@ -34,7 +34,7 @@ jQuery( document ).ready(function() {
     jQuery.each(jQuery.parseJSON(remote), function(index,value) {
          //jQuery( "<option>"+value.course+"</option>" ).appendTo( '#course-select' );
         console.log(value);
-        jQuery('#learning_strategies_list').append('<div><a href="'+value.guid+'">'+value.post_title+'</a> '+value.meta.principedia_course+'  '+value.meta.principedia_year+' '+value.meta.principedia_instructor+'</div>')
+        jQuery('#learning_strategies_list').append('<div><a href="'+value.guid+'">'+value.post_title+'</a> '+value.meta.principedia_course+'  '+value.meta.principedia_semester+'  '+value.meta.principedia_year+' '+value.meta.principedia_instructor+'</div>')
     });
   }
 
@@ -52,7 +52,7 @@ jQuery( document ).ready(function() {
         }
     });
     jQuery('#course-choice-dropdown').html('');
-    jQuery('#course-choice-dropdown').append('<label>Select Course</label>');
+    jQuery('#course-choice-dropdown').append('<label class="ca_dropdown_label">Select Course</label>');
     jQuery('#course-choice-dropdown').append('<select name="course-select" id="course-select"></select>');
 
     jQuery.each(jQuery.parseJSON(remote), function(index,value) {

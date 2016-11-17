@@ -120,7 +120,7 @@ register_deactivation_hook( __FILE__, 'principedia_remove' );
 
 function principedia_add_tinymce_plugin($plugin_array) {
 
-    $plugin_array['principedia_tc_button'] = plugins_url( '/text-button.js', __FILE__ );
+    $plugin_array['principedia_tc_button'] = plugins_url( '/js/text-button.js', __FILE__ );
     return $plugin_array;
 }
 
@@ -168,9 +168,14 @@ add_action('admin_head', 'principedia_add_my_tc_button');
 add_action( 'wp_ajax_principedia_insert_dialog', 'principedia_insert_gistpen_dialog' );
 
 function principedia_insert_gistpen_dialog() {
-
-            echo "<div>Provide a list of the learning strategies and allow user to select</div>";
-	    die();
+        echo "<div style='margin:20px;'>";
+	$args =  array( 'numberposts'	=> -1,'post_type' => 'strategy', 'orderby' => 'title', 'sort_order' => 'desc');
+	$strategies =  get_posts($args);
+	foreach($strategies as $strategy) {
+	   echo "<div><a href='#'>".$strategy->post_title."</a></div>";
+	}
+        echo "</div>";
+   die();
 
 }
 
