@@ -29,12 +29,12 @@ jQuery( document ).ready(function() {
             remote = data;
         }
     });
-    jQuery('#results').html('');
+    jQuery('#learning_strategies_list').html('');
 
     jQuery.each(jQuery.parseJSON(remote), function(index,value) {
          //jQuery( "<option>"+value.course+"</option>" ).appendTo( '#course-select' );
         console.log(value);
-        jQuery('#results').append('<div><a href="'+value.guid+'">'+value.post_title+'</a> '+value.meta.principedia_course+'  '+value.meta.principedia_year+' '+value.meta.principedia_instructor+'</div>')
+        jQuery('#learning_strategies_list').append('<div><a href="'+value.guid+'">'+value.post_title+'</a> '+value.meta.principedia_course+'  '+value.meta.principedia_year+' '+value.meta.principedia_instructor+'</div>')
     });
   }
 

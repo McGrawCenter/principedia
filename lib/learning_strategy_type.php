@@ -6,11 +6,11 @@ function create_strategy_posttype() {
 	// CPT Options
 		array(
 			'labels' => array(
-				'name' => __( 'Stategies' ),
-				'singular_name' => __( 'Stategy' ),
-				'edit_item'     => __( 'Edit Learning Stategy' ),
-				'new_item'      => __( 'New Learning Stategy' ),
-				'add_new_item'      => __( 'Add New Learning Stategy' ),
+				'name' => __( 'Strategies' ),
+				'singular_name' => __( 'Strategy' ),
+				'edit_item'     => __( 'Edit Learning Strategy' ),
+				'new_item'      => __( 'New Learning Strategy' ),
+				'add_new_item'      => __( 'Add New Learning Strategy' ),
 			),
 			'supports' => array('title','editor','revisions'),
 			'hierarchical' => false,

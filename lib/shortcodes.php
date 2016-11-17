@@ -116,8 +116,8 @@ add_shortcode( 'learningstrategy_link' , 'insert_learningstrategy_link' );
 
 function insert_course_analysis_nav() {
 
-
-$html .= "<label for='selectcourse'>Select Department</label>";
+$html = "";
+$html .= "<label for='selectcourse'>Select Department</label> ";
 $html .= "<select name='selectcourse'>";
 $html .= "  <option></option>";
 
@@ -129,7 +129,7 @@ if($departments = get_terms('department')) {
 $html .= "</select>\n";
 
 $html .= "<div id='course-choice-dropdown'></div>\n";
-$html .= "<div id='results'></div>\n";
+$html .= "<div id='learning_strategies_list'></div>\n";
 
 
 // based on the selection above another select dropdown is inserted by javascript

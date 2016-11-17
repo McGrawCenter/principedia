@@ -3,6 +3,8 @@
 
 
 
+
+
 // Our custom post type function
 function create_ca_posttype() {
 
@@ -29,6 +31,7 @@ function create_ca_posttype() {
 }
 
 add_action( 'init', 'create_ca_posttype' );
+
 
 
 
@@ -152,7 +155,6 @@ function add_principedia_shoul_box()
 
 
 
-
 /**
  * Save custom field data when creating/updating posts
  */
@@ -197,8 +199,6 @@ function save_principedia_custom_fields(){
 }
 add_action( 'admin_init', 'add_principedia_meta_boxes' );
 add_action( 'save_post', 'save_principedia_custom_fields' );
-
-
 
 
 

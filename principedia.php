@@ -12,9 +12,10 @@
 function principedia_scripts(){
     wp_register_script( 'principedia', plugin_dir_url( __FILE__ ) . 'js/principedia.js', array( 'jquery' ));
     wp_enqueue_script( 'principedia' );
+    wp_enqueue_style( 'principedia-css', plugin_dir_url( __FILE__ ) . 'css/style.css' );
+
 }
 add_action('wp_enqueue_scripts', 'principedia_scripts');
-
 
 
 
@@ -24,10 +25,13 @@ add_action('wp_enqueue_scripts', 'principedia_scripts');
 
 $dir = plugin_dir_path( __FILE__ );
 
+
 include($dir.'lib/course_analysis_type.php');
+
 include($dir.'lib/learning_strategy_type.php');
 include($dir.'lib/course_type.php');
 include($dir.'lib/shortcodes.php');
+
 
 
 /************************** CREATE COURSE ANALYSIS AUTHORING PAGE *********************/
@@ -183,6 +187,5 @@ function course_analysis_custom_post_type_template($single_template) {
      return $single_template;
 }
 add_filter( 'single_template', 'course_analysis_custom_post_type_template' );
-
 
 

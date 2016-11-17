@@ -64,7 +64,7 @@ function save_course_custom_fields(){
 
   global $post;
 
-  if ( $post )
+  if ( $post && $post->post_type=='course' )
   {
 
     update_post_meta($post->ID, "course_registrar_id", @$_POST['course_registrar_id']);
@@ -95,5 +95,3 @@ add_filter( 'the_content', 'principedia_add_ca_list' );
 
 
 ?>
-
-

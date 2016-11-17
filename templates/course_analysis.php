@@ -2,8 +2,11 @@
 /**
  * The template for displaying course analyses
  */
+if ( is_user_logged_in() ) {
+    $editlink =  '<a href="?edit">Edit</a>';
+}
 
-if(isset($_GET['edit'])) { $edit = true; } else { $edit = false; }
+if(isset($_GET['edit']) && is_user_logged_in()) { $edit = true; } else { $edit = false; }
 
 
 get_header(); ?>
@@ -33,6 +36,9 @@ get_header(); ?>
 				</header><!-- .entry-header -->
 
 				<div class="entry-content">
+<?php
+if(!$edit && is_user_logged_in()) { echo $editlink; }
+?>
 
 <?php
 	//IF EDIT VARIABLE ABOVE IS SET TO TRUE, CREATE AN EDIT FORM, OTHERWISE JUST PRINT OUT THE TEXT
