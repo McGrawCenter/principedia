@@ -17,3 +17,7 @@ ul ul ul li {
   display:inline-block;
   width:200px;
 }
+
+.learning-strategy-icon {
+    background-image: url('/wp-content/plugins/principedia/images/learning-strategy.png');
+}

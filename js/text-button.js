@@ -1,9 +1,10 @@
 (function() {
     tinymce.PluginManager.add('principedia_tc_button', function( editor, url ) {
         editor.addButton( 'principedia_tc_button', {
-            text: 'Link to Learning Stategy',
-	    tooltip : 'Insert Link to Learning Strategy',
-            icon: false,
+            //text: 'Link to Learning Stategy',
+	    //tooltip : 'Insert Link to Learning Strategy',
+	    title: 'Link to Learning Strategy',
+            icon: 'icon learning-strategy-icon',
             onclick: function() {
                 
 
