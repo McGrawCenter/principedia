@@ -18,6 +18,10 @@ ul ul ul li {
   width:200px;
 }
 
+#learning_strategies_list {
+  margin-top:30px;
+}
+
 .learning-strategy-icon {
     background-image: url('/wp-content/plugins/principedia/images/learning-strategy.png');
 }

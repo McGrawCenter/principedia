@@ -159,6 +159,10 @@ function create_course_dept_taxonomy() {
 	  die(json_encode($tax_terms));
 	}
 
+
+
+// OUTPUT JSON LIST OF courses
+
 	if(isset($_GET['json']) && $_GET['json'] == 'courses') {
 
 		$dept = $_GET['dept'];
@@ -167,7 +171,7 @@ function create_course_dept_taxonomy() {
 		// first we need a list of posts for a specific dept
 
 		$posts = get_posts(array(
-		    'post_type' => 'principedia',
+		    'post_type' => 'course',
 		    'tax_query' => array(
 			array(
 			'taxonomy' => 'department',
@@ -180,10 +184,9 @@ function create_course_dept_taxonomy() {
 
 		// then we need to loop through and extract the course ids
 
-		foreach($posts as $key=>$post) {
+		foreach($posts as $key=>$val) {
 		  $returnArr[$key] = new StdClass();
-		  $meta = get_post_meta($post->ID);
-		  $returnArr[$key]->course = $meta['principedia_course'][0];
+		  $returnArr[$key]->course = $val->post_title;
 		}
 
 		die(json_encode($returnArr));
@@ -198,21 +201,22 @@ function create_course_dept_taxonomy() {
 	if(isset($_GET['json']) && $_GET['json'] == 'analyses') {
 
 		$course = $_GET['courseid'];
+		if($course != "") {
+		  $returnArr = array();
+		  // get a list of all the principedia type posts with $course as the principedia_course
 
-		$returnArr = array();
-		// get a list of all the principedia type posts with $course as the principedia_course
-
-		$posts = get_posts(array(
+		  $posts = get_posts(array(
 		    'post_type' => 'principedia',
 		    'meta_key'	=> 'principedia_course',
 		    'meta_value'=> $course
 		    )
-		);
-		foreach($posts as &$post) {
-		  $post->meta = get_post_meta($post->ID);
+		  );
+		  foreach($posts as &$post) {
+		    $post->meta = get_post_meta($post->ID);
+		  }
+		
+		  die(json_encode($posts));
 		}
-
-		die(json_encode($posts));
 	}
 
 }

@@ -32,9 +32,8 @@ get_header(); ?>
 						endif;
 
 					echo "<div>Course: ".$meta['principedia_course'][0]."</div>";
-					echo "<div>Dept: ".$meta['principedia_dept'][0]."</div>";
 					echo "<div>Instructor: ".$meta['principedia_instructor'][0]."</div>";
-					echo "<div>Year: ".$meta['principedia_year'][0]."</div>";
+					echo "<div>{$meta['principedia_semester'][0]} {$meta['principedia_year'][0]}</div>";
 					?>
 				</header><!-- .entry-header -->
 

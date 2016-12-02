@@ -109,9 +109,6 @@ register_deactivation_hook( __FILE__, 'principedia_remove' );
 
 
 
-
-
-
 /************************** ADD BUTTON TO TINYMCE *******************************/
 
 
@@ -213,24 +210,74 @@ add_filter( 'single_template', 'course_analysis_custom_post_type_template' );
 
 
 
+
+
+
+
+
+
+
+
+function principedia_handle_form_post () {
+
+
 /******************************
-* Collect course analysis edit form submission
-*
+* Course analysis edit form submission
 ******************************/
 
 if(isset($_POST['ca_id'])) {
 
-$meta = get_post_meta( $_POST['ca_id'] );
+    $meta = get_post_meta( $_POST['ca_id'] );
 
-update_post_meta($_POST['ca_id'], "goals", $_POST['goals']);
-update_post_meta($_POST['ca_id'], "instruction", $_POST['instruction']);
-update_post_meta($_POST['ca_id'], "assignments", $_POST['assignments']);
-update_post_meta($_POST['ca_id'], "resources", $_POST['resources']);
-update_post_meta($_POST['ca_id'], "shouldknow", $_POST['shouldknow']);
-$linkto = get_permalink($_POST['ca_id']);
-header('Location:'.$linkto);
+    update_post_meta($_POST['ca_id'], "goals", $_POST['goals']);
+    update_post_meta($_POST['ca_id'], "instruction", $_POST['instruction']);
+    update_post_meta($_POST['ca_id'], "assignments", $_POST['assignments']);
+    update_post_meta($_POST['ca_id'], "resources", $_POST['resources']);
+    update_post_meta($_POST['ca_id'], "shouldknow", $_POST['shouldknow']);
 
+    $linkto = get_permalink($_POST['ca_id']);
+    header('Location:'.$linkto);
+
+  }
+
+
+
+
+  /******************************
+  * Course analysis create form submission
+  ******************************/
+  if( isset($_POST['course_title']) &&  isset($_POST['course_code']) &&  isset($_POST['semester']) &&  isset($_POST['year']) &&  isset($_POST['instructor']) ) {
+    $user = wp_get_current_user();
+
+    $post_id = wp_insert_post( array('author'=>$user->data->user_login, 'post_status'=>'publish',  'post_title'=> $_POST['course_title'],  'post_type'=>'principedia'));
+
+    update_post_meta($post_id, "principedia_course", 		$_POST['course_code']);
+    update_post_meta($post_id, "principedia_semester", 		$_POST['semester']);
+    update_post_meta($post_id, "principedia_year", 		$_POST['year']);
+    update_post_meta($post_id, "principedia_instructor", 	$_POST['instructor']);
+
+    add_post_meta($post_id, "goals", " ");
+    add_post_meta($post_id, "instruction", " ");
+    add_post_meta($post_id, "assignments", " ");
+    add_post_meta($post_id, "resources", " ");
+    add_post_meta($post_id, "shouldknow", " ");
+
+    $linkto = get_permalink($post_id);
+
+    header('Location: '.$linkto);
+    die();
+  }
 }
+
+add_action('init', 'principedia_handle_form_post');
+
+
+
+
+
+
+
+
 
 /******************************
 * Get a list of comments with a specific meta value

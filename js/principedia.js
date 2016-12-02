@@ -62,7 +62,7 @@ jQuery( document ).ready(function() {
     });
     jQuery('#course-choice-dropdown').html('');
     jQuery('#course-choice-dropdown').append('<label class="ca_dropdown_label">Select Course</label>');
-    jQuery('#course-choice-dropdown').append('<select name="selectcourse" id="selectcourse"></select>');
+    jQuery('#course-choice-dropdown').append('<select name="selectcourse" id="selectcourse"><option></option></select>');
 
     jQuery.each(jQuery.parseJSON(remote), function(index,value) {
         jQuery('#selectcourse').append("<option class='course-choice'>"+value.course+"</option>");

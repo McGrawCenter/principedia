@@ -135,8 +135,12 @@ add_shortcode( 'course_list' , 'insert_course_list' );
 function insert_new_course_analysis_form() {
   echo "<form name='new_course_analysis' method='POST'>
     <p>
+      <label for='course_title'>Course title</label>
+      <input type='text' name='course_title' id='course_title' value='' placeholder='Introduction to Computer Science' />
+    </p>
+    <p>
       <label for='course_code'>Course code</label>
-      <input type='text' name='course_code' id='course_code' value='' />
+      <input type='text' name='course_code' id='course_code' value='' placeholder='COM101' />
     </p>
     <p>
       <label for='semester'>Semester</label>
