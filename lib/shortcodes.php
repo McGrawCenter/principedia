@@ -127,6 +127,46 @@ add_shortcode( 'course_list' , 'insert_course_list' );
 
 
 
+/* *********************************************
+*  Shortcode to insert a form for adding new course analysis from frontend
+********************************************* */
+
+
+function insert_new_course_analysis_form() {
+  echo "<form name='new_course_analysis' method='POST'>
+    <p>
+      <label for='course_code'>Course code</label>
+      <input type='text' name='course_code' id='course_code' value='' />
+    </p>
+    <p>
+      <label for='semester'>Semester</label>
+      <select name='semester' id='semester'>
+	<option value='F' selected=''>Fall</option>
+	<option value='S' selected=''>Spring</option>
+	<option value='SU' selected=''>Summer</option>
+      </select>
+    </p>
+    <p>
+      <label for='year'>Year</label>
+      <input type='text' name='year' id='year' value='' />
+    </p>
+    <p>
+      <label for='instructor'>Instructor</label>
+      <input type='text' name='instructor' id='instructor' value='' />
+    </p>
+    <p>
+      <input type='submit' value='Add Course Analysis'/>
+    </p>
+    </form>
+  ";
+
+}
+
+add_shortcode( 'new_course_analysis_form' , 'insert_new_course_analysis_form' );
+
+
+
+
 
 
 /* *********************************************
