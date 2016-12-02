@@ -250,8 +250,8 @@ add_shortcode( 'learningstrategy_link' , 'insert_learningstrategy_link' );
 function insert_course_analysis_nav() {
 
 $html = "";
-$html .= "<label for='selectcourse' class='ca_dropdown_label'>Select Department</label> ";
-$html .= "<select name='selectcourse'>";
+$html .= "<label for='selectdept' class='ca_dropdown_label'>Select Department</label> ";
+$html .= "<select name='selectdept' id='selectdept'>";
 $html .= "  <option></option>";
 
 if($departments = get_terms('department')) {
