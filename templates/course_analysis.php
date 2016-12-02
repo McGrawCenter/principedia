@@ -75,8 +75,10 @@ $editor_settings = array(
 
 
 
-						<?php 
-						if($c = get_section_comments($post->ID,'section','goals')) { format_section_comments($c); }
+						<?php
+						if(!$edit) {
+						   if($c = get_section_comments($post->ID,'section','goals')) { format_section_comments($c); }
+						}
 						?>
 
 
@@ -93,7 +95,9 @@ $editor_settings = array(
 
 
 						<?php 
-						if($c = get_section_comments($post->ID,'section','instruction')) { format_section_comments($c); }
+						if(!$edit) {
+						  if($c = get_section_comments($post->ID,'section','instruction')) { format_section_comments($c); }
+						}
 						?>
 
 
@@ -110,8 +114,10 @@ $editor_settings = array(
 					<?php } ?>
 
 
-						<?php 
-						if($c = get_section_comments($post->ID,'section','assignments')) { format_section_comments($c); }
+						<?php
+						if(!$edit) {
+						  if($c = get_section_comments($post->ID,'section','assignments')) { format_section_comments($c); }
+						}
 						?>
 
 
@@ -129,8 +135,10 @@ $editor_settings = array(
 					<?php } ?>
 
 
-						<?php 
-						if($c = get_section_comments($post->ID,'section','resources')) { format_section_comments($c); }
+						<?php
+						if(!$edit) {
+						  if($c = get_section_comments($post->ID,'section','resources')) { format_section_comments($c); }
+						}
 						?>
 
 
@@ -145,8 +153,10 @@ $editor_settings = array(
 					<?php echo do_shortcode($meta['shouldknow'][0]); ?>
 					<?php } ?>
 
-						<?php 
-						if($c = get_section_comments($post->ID,'section','shouldknow')) { format_section_comments($c); }
+						<?php
+						if(!$edit) {
+						  if($c = get_section_comments($post->ID,'section','shouldknow')) { format_section_comments($c); }
+						}
 						?>
 
 					<?php
@@ -154,9 +164,9 @@ $editor_settings = array(
 					<p>&nbsp;</p>
 					   <input type="submit" value="Submit"/>
 					<?php } ?>
-<?php
-if($edit && is_user_logged_in()) { echo "</form>"; }
-?>
+			<?php
+			if($edit && is_user_logged_in()) { echo "</form>"; }
+			?>
 
 				</div><!-- .entry-content -->
 
@@ -169,7 +179,15 @@ if($edit && is_user_logged_in()) { echo "</form>"; }
 		<?php
 			// If comments are open or we have at least one comment, load up the comment template.
 			if ( comments_open() || get_comments_number() ) :
-				comments_template( );
+				//comments_template( );
+
+
+		comment_form( array(
+			'title_reply_before' => '<h2 id="reply-title" class="comment-reply-title">',
+			'title_reply_after'  => '</h2>',
+		) );
+
+
 			endif;
 		// End the loop.
 		endwhile;

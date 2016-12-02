@@ -250,7 +250,8 @@ function get_section_comments($post_id, $meta_name, $meta_value) {
 
 	return $returnArr;
 }
-
+// formatting the comments attached to individual sections
+// this is not the best way to do this. Need to figure out how to use a custom template instead
 function format_section_comments($comments) {
 	$html = "<div class='section-comments'>";
 	$html .= "<div><h5>COMMENTS ON THIS SECTION</h5></div>";
