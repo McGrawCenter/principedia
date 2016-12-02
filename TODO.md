@@ -22,3 +22,4 @@ Save course analysis when submit button is pressed.
 
 Dropdown CA nav is not working on Safari
 
+Fixing the link to learning strategy button to show icon correctly (Mohammad - DONE)

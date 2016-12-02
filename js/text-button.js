@@ -4,7 +4,7 @@
             //text: 'Link to Learning Stategy',
 	    //tooltip : 'Insert Link to Learning Strategy',
 	    title: 'Link to Learning Strategy',
-            icon: 'icon learning-strategy-icon',
+	    image: '/wp-content/plugins/principedia/images/learning-strategy.png',
             onclick: function() {
                 
 
