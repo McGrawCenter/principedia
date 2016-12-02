@@ -158,7 +158,24 @@ function principedia_add_my_tc_button() {
 add_action('admin_head', 'principedia_add_my_tc_button');
 
 
+/*****************************************/
 
+function fb_change_mce_options($initArray) {
+
+    // Comma separated string od extendes tags
+    // Command separated string of extended elements
+    $ext = 'pre[id|name|class|style]]';
+    if ( isset( $initArray['extended_valid_elements'] ) ) {
+        $initArray['extended_valid_elements'] .= ',' . $ext;
+    } else {
+        $initArray['extended_valid_elements'] = $ext;
+    }
+    // maybe; set tiny paramter verify_html
+    //$initArray['verify_html'] = false;
+print_r($initArray);die();
+    return $initArray;
+}
+add_filter( 'tiny_mce_before_init', 'fb_change_mce_options' );
 
 
 
@@ -204,7 +221,7 @@ add_filter( 'single_template', 'course_analysis_custom_post_type_template' );
 if(isset($_POST['ca_id'])) {
 
 $meta = get_post_meta( $_POST['ca_id'] );
-print_r($meta);
+
 update_post_meta($_POST['ca_id'], "goals", $_POST['goals']);
 update_post_meta($_POST['ca_id'], "instruction", $_POST['instruction']);
 update_post_meta($_POST['ca_id'], "assignments", $_POST['assignments']);

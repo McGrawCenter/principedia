@@ -42,6 +42,20 @@ get_header(); ?>
 <?php
 if(!$edit && is_user_logged_in()) { echo $editlink; }
 if($edit && is_user_logged_in()) { echo "<form name='course_analysis_edit' method='POST'><input type='text' name='ca_id' value='".$post->ID."'/>"; }
+
+// these are the settings for the wysiwyg editors on the page
+$editor_settings = array(
+    'tinymce'       => array(
+        'setup' => 'function (ed) {
+            tinymce.documentBaseURL = "' . get_admin_url() . '";
+        }',
+    ),
+    'quicktags'     => TRUE,
+    'editor_class'  => 'frontend-article-editor',
+    'textarea_rows' => 20,
+    'media_buttons' => FALSE,
+);
+
 ?>
 
 <?php
@@ -51,7 +65,7 @@ if($edit && is_user_logged_in()) { echo "<form name='course_analysis_edit' metho
 					<h3>Description of Course Goals and Curriculum</h3>
 					<?php
 					if($edit) { 
-					    wp_editor( do_shortcode($meta['goals'][0]), 'goals', $settings = array() );
+					    wp_editor( do_shortcode($meta['goals'][0]), 'goals', $editor_settings );
 					} 
 					else {
 					?>
