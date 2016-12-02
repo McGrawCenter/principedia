@@ -56,6 +56,7 @@ $editor_settings = array(
     'media_buttons' => FALSE,
 );
 
+
 ?>
 
 <?php
@@ -74,6 +75,12 @@ $editor_settings = array(
 
 
 
+						<?php 
+						if($c = get_section_comments($post->ID,'section','goals')) { format_section_comments($c); }
+						?>
+
+
+
 					<h3>Learning From Classroom Instruction</h3>
 					<?php
 					if($edit) { 
@@ -83,6 +90,14 @@ $editor_settings = array(
 					?>
 					<?php echo do_shortcode($meta['instruction'][0]); ?>
 					<?php } ?>
+
+
+						<?php 
+						if($c = get_section_comments($post->ID,'section','instruction')) { format_section_comments($c); }
+						?>
+
+
+
 
 					<h3>Learning For and From Assignments</h3>
 					<?php
@@ -94,6 +109,15 @@ $editor_settings = array(
 					<?php echo do_shortcode($meta['assignments'][0]); ?>
 					<?php } ?>
 
+
+						<?php 
+						if($c = get_section_comments($post->ID,'section','assignments')) { format_section_comments($c); }
+						?>
+
+
+
+
+
 					<h3>External Resources</h3>
 					<?php
 					if($edit) { 
@@ -103,6 +127,13 @@ $editor_settings = array(
 					?>
 					<?php echo do_shortcode($meta['resources'][0]); ?>
 					<?php } ?>
+
+
+						<?php 
+						if($c = get_section_comments($post->ID,'section','resources')) { format_section_comments($c); }
+						?>
+
+
 
 					<h3>What Students Should Know About This Course For Purposes Of Course Selection</h3>
 					<?php
@@ -114,6 +145,9 @@ $editor_settings = array(
 					<?php echo do_shortcode($meta['shouldknow'][0]); ?>
 					<?php } ?>
 
+						<?php 
+						if($c = get_section_comments($post->ID,'section','shouldknow')) { format_section_comments($c); }
+						?>
 
 					<?php
 					if($edit) { ?>
@@ -132,12 +166,11 @@ if($edit && is_user_logged_in()) { echo "</form>"; }
 				</footer><!-- .entry-footer -->
 
 			</article><!-- #post-## -->
-			<?php
+		<?php
 			// If comments are open or we have at least one comment, load up the comment template.
 			if ( comments_open() || get_comments_number() ) :
-				comments_template();
+				comments_template( );
 			endif;
-
 		// End the loop.
 		endwhile;
 		?>

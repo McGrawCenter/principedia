@@ -217,11 +217,11 @@ add_action( 'save_post', 'save_principedia_custom_fields' );
 *  THIS NEEDS WORK
 *   https://www.smashingmagazine.com/2012/05/adding-custom-fields-in-wordpress-comment-form/
 *****/
-add_filter('principedia_comment_form_default_fields', 'custom_fields');
+
 
 
 function principedia_comment_form_default_fields () {
-
+die('got here');
     $commenter = wp_get_current_commenter();
     $req = get_option( 'require_name_email' );
     $aria_req = ( $req ? " aria-required='true'" : '' );
@@ -235,8 +235,37 @@ function principedia_comment_form_default_fields () {
   return $fields;
 }
 
+add_filter('principedia_comment_form_default_fields', 'custom_fields');
 
 
 
+
+function additional_fields () {
+  echo '<p class="comment-form-title">'.
+  '<label for="section">' . __( 'Section' ) . '</label>'.
+  '<select id="section" name="section" tabindex="5">
+     <option value="goals">Description of Course Goals and Curriculum</option>
+     <option value="instruction">Learning From Classroom Instruction</option>
+     <option value="assignments">Learning For and From Assignments</option>
+     <option value="resources">External Resources</option>
+     <option value="shouldknow">What Students Should Know About This Course For Purposes Of Course Selection</option>
+   </select>
+   </p>';
+}
+
+add_action( 'comment_form_logged_in_after', 'additional_fields' );
+add_action( 'comment_form_after_fields', 'additional_fields' );
+
+
+
+function save_comment_meta_data( $comment_id ) {
+  if ( ( isset( $_POST['section'] ) ) && ( $_POST['section'] != '') )
+  $section = wp_filter_nohtml_kses($_POST['section']);
+  add_comment_meta( $comment_id, 'section', $section );
+
+}
+
+
+add_action( 'comment_post', 'save_comment_meta_data' );
 
 

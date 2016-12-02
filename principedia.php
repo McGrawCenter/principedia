@@ -172,7 +172,7 @@ function fb_change_mce_options($initArray) {
     }
     // maybe; set tiny paramter verify_html
     //$initArray['verify_html'] = false;
-print_r($initArray);die();
+
     return $initArray;
 }
 add_filter( 'tiny_mce_before_init', 'fb_change_mce_options' );
@@ -232,8 +232,38 @@ header('Location:'.$linkto);
 
 }
 
+/******************************
+* Get a list of comments with a specific meta value
+*
+******************************/
 
 
+function get_section_comments($post_id, $meta_name, $meta_value) {
+	$returnArr = array();
+	$args = array('ID' => $post_id);
+	$comments = get_comments($args);
+
+	foreach($comments as $comment) {
+	  $section_meta_value = get_comment_meta( $comment->comment_ID, $meta_name);
+	  if(isset($section_meta_value[0]) && $section_meta_value[0] == $meta_value) { $returnArr[] = $comment; }
+	}
+
+	return $returnArr;
+}
+
+function format_section_comments($comments) {
+	$html = "<div class='section-comments'>";
+	$html .= "<div><h5>COMMENTS ON THIS SECTION</h5></div>";
+
+	foreach($comments as $comment) {
+
+	$html .= "<div><strong>{$comment->comment_author}</strong> </div>";
+	$html .= "<div>{$comment->comment_date}</div>";
+	$html .= "<div>{$comment->comment_content}</div>";
+	}
+	$html .= "</div>";
+  echo $html;
+}
 
 
 

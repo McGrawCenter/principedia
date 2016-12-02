@@ -21,3 +21,13 @@ ul ul ul li {
 .learning-strategy-icon {
     background-image: url('/wp-content/plugins/principedia/images/learning-strategy.png');
 }
+
+
+/*** COURSE ANALYSIS COMMENTS ***/
+
+.section-comments {
+  border:solid 1px grey;
+  padding:20px;
+  font-size:0.9em;
+  margin: 20px 0;
+}
