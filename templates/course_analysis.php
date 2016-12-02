@@ -83,6 +83,8 @@ $editor_settings = array(
 
 
 
+
+
 					<h3>Learning From Classroom Instruction</h3>
 					<?php
 					if($edit) { 

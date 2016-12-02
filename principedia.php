@@ -257,10 +257,11 @@ function format_section_comments($comments) {
 	$html .= "<div><h5>COMMENTS ON THIS SECTION</h5></div>";
 
 	foreach($comments as $comment) {
-
-	$html .= "<div><strong>{$comment->comment_author}</strong> </div>";
-	$html .= "<div>{$comment->comment_date}</div>";
-	$html .= "<div>{$comment->comment_content}</div>";
+	if($comment->comment_approved == 1) {
+	  $html .= "<div><strong>{$comment->comment_author}</strong> </div>";
+	  $html .= "<div>{$comment->comment_date}</div>";
+	  $html .= "<div>{$comment->comment_content}</div>";
+	}
 	}
 	$html .= "</div>";
   echo $html;
