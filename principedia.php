@@ -194,3 +194,29 @@ function course_analysis_custom_post_type_template($single_template) {
 add_filter( 'single_template', 'course_analysis_custom_post_type_template' );
 
 
+
+
+/******************************
+* Collect course analysis edit form submission
+*
+******************************/
+
+if(isset($_POST['ca_id'])) {
+
+$meta = get_post_meta( $_POST['ca_id'] );
+print_r($meta);
+update_post_meta($_POST['ca_id'], "goals", $_POST['goals']);
+update_post_meta($_POST['ca_id'], "instruction", $_POST['instruction']);
+update_post_meta($_POST['ca_id'], "assignments", $_POST['assignments']);
+update_post_meta($_POST['ca_id'], "resources", $_POST['resources']);
+update_post_meta($_POST['ca_id'], "shouldknow", $_POST['shouldknow']);
+$linkto = get_permalink($_POST['ca_id']);
+header('Location:'.$linkto);
+
+}
+
+
+
+
+
+

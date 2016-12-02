@@ -3,7 +3,10 @@
  * The template for displaying course analyses
  */
 if ( is_user_logged_in() ) {
-    $editlink =  '<a href="?edit">Edit</a>';
+    $editlink = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    if(strstr('?',$editlink)) { $editlink .= "&edit"; }
+    else { $editlink .= "&edit"; }
+    $editlink =  '<a href="'.$editlink.'">Edit</a>';
 }
 
 if(isset($_GET['edit']) && is_user_logged_in()) { $edit = true; } else { $edit = false; }
@@ -38,6 +41,7 @@ get_header(); ?>
 				<div class="entry-content">
 <?php
 if(!$edit && is_user_logged_in()) { echo $editlink; }
+if($edit && is_user_logged_in()) { echo "<form name='course_analysis_edit' method='POST'><input type='text' name='ca_id' value='".$post->ID."'/>"; }
 ?>
 
 <?php
@@ -102,7 +106,9 @@ if(!$edit && is_user_logged_in()) { echo $editlink; }
 					<p>&nbsp;</p>
 					   <input type="submit" value="Submit"/>
 					<?php } ?>
-
+<?php
+if($edit && is_user_logged_in()) { echo "</form>"; }
+?>
 
 				</div><!-- .entry-content -->
 
