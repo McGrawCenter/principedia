@@ -160,15 +160,6 @@ add_action('admin_head', 'principedia_add_my_tc_button');
 
 
 
-    // insert some css styles to show the icon image
-
-function principedia_admin_style() {
-
-  wp_enqueue_style('principedia-admin-styles', plugin_dir_url( __FILE__ ) .'css/admin-style.css');
-}
-
-add_action('admin_enqueue_scripts', 'principedia_admin_style');
-
 
 /*****************************************/
 
