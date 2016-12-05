@@ -40,19 +40,19 @@ get_header(); ?>
 				<div class="entry-content">
 <?php
 if(!$edit && is_user_logged_in()) { echo $editlink; }
-if($edit && is_user_logged_in()) { echo "<form name='course_analysis_edit' method='POST'><input type='text' name='ca_id' value='".$post->ID."'/>"; }
+if($edit && is_user_logged_in()) { echo "<form name='course_analysis_edit' method='POST'><input type='hidden' name='ca_id' value='".$post->ID."'/>"; }
 
 // these are the settings for the wysiwyg editors on the page
 $editor_settings = array(
     'tinymce'       => array(
         'setup' => 'function (ed) {
-            tinymce.documentBaseURL = "' . get_admin_url() . '";
+            tinymce.documentBaseURL = "' . get_site_url() . '";
         }',
     ),
     'quicktags'     => TRUE,
     'editor_class'  => 'frontend-article-editor',
     'textarea_rows' => 20,
-    'media_buttons' => FALSE,
+    'media_buttons' => FALSE
 );
 
 
@@ -87,7 +87,7 @@ $editor_settings = array(
 					<h3>Learning From Classroom Instruction</h3>
 					<?php
 					if($edit) { 
-					    wp_editor( do_shortcode($meta['instruction'][0]), 'instruction', $settings = array() );
+					    wp_editor( do_shortcode($meta['instruction'][0]), 'instruction', $editor_settings );
 					} 
 					else {
 					?>
@@ -107,7 +107,7 @@ $editor_settings = array(
 					<h3>Learning For and From Assignments</h3>
 					<?php
 					if($edit) { 
-					    wp_editor( do_shortcode($meta['assignments'][0]), 'assignments', $settings = array() );
+					    wp_editor( do_shortcode($meta['assignments'][0]), 'assignments', $editor_settings);
 					} 
 					else {
 					?>
@@ -128,7 +128,7 @@ $editor_settings = array(
 					<h3>External Resources</h3>
 					<?php
 					if($edit) { 
-					    wp_editor( do_shortcode($meta['resources'][0]), 'resources', $settings = array() );
+					    wp_editor( do_shortcode($meta['resources'][0]), 'resources', $editor_settings );
 					} 
 					else {
 					?>
@@ -147,7 +147,7 @@ $editor_settings = array(
 					<h3>What Students Should Know About This Course For Purposes Of Course Selection</h3>
 					<?php
 					if($edit) { 
-					    wp_editor( do_shortcode($meta['shouldknow'][0]), 'shouldknow', $settings = array() );
+					    wp_editor( do_shortcode($meta['shouldknow'][0]), 'shouldknow', $editor_settings);
 					} 
 					else {
 					?>

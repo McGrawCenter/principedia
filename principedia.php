@@ -109,19 +109,14 @@ register_deactivation_hook( __FILE__, 'principedia_remove' );
 
 
 
-/************************** ADD BUTTON TO TINYMCE *******************************/
-
-
+/************************** ADD BUTTON TO TINYMCE IN ADMIN AREA *******************************/
 // https://www.gavick.com/blog/wordpress-tinymce-custom-buttons
 
 
 function principedia_add_tinymce_plugin($plugin_array) {
-
-    $plugin_array['principedia_tc_button'] = plugins_url( '/js/text-button.js', __FILE__ );
+    $plugin_array['principedia_tc_button'] = plugins_url( '/js/admin-strategy-button.js', __FILE__ );
     return $plugin_array;
 }
-
-
 
 
 function principedia_register_my_tc_button($buttons) {
@@ -129,31 +124,26 @@ function principedia_register_my_tc_button($buttons) {
    return $buttons;
 }
 
-
-
 function principedia_add_my_tc_button() {
+
     global $typenow;
 
     // check user permissions
-    if ( !current_user_can('edit_posts') && !current_user_can('edit_pages') ) {
+    if (!current_user_can('edit_posts') && !current_user_can('edit_pages') ) {
     return;
     }
-    // verify the post type - only do this if the type is principedia
+    // verify the post type - only do this if the type is principedia and if 
+    //user is in backend (is_admin just checks backend, not if user is actually admin)
+    if( is_admin() ) { 
+	if( !in_array( $typenow, array( 'principedia' ) ) ) {  return;  }
+    }
 
-    if( ! in_array( $typenow, array( 'principedia' ) ) )
-        return;
-    // check if WYSIWYG is enabled
+
     if ( get_user_option('rich_editing') == 'true') {
-
         add_filter("mce_external_plugins", "principedia_add_tinymce_plugin");
         add_filter('mce_buttons', 'principedia_register_my_tc_button');
     }
-
-   
-
 }
-
-
 
 add_action('admin_head', 'principedia_add_my_tc_button');
 
@@ -161,8 +151,58 @@ add_action('admin_head', 'principedia_add_my_tc_button');
 
 
 
-/*****************************************/
 
+
+
+/************************** ADD BUTTON TO TINYMCE IN FRONTEND COURSE ANALYSIS PAGES *******************************/
+// https://www.gavick.com/blog/wordpress-tinymce-custom-buttons
+
+
+function principedia_add_frontend_tinymce_plugin($plugin_array) {
+    $plugin_array['principedia_tc_button'] = plugins_url( '/js/frontend-strategy-button.js', __FILE__ );
+    return $plugin_array;
+}
+
+
+function principedia_register_frontend_button($buttons) {
+   array_push($buttons, "principedia_tc_button");
+   return $buttons;
+}
+
+function principedia_add_frontend_button() {
+
+    global $typenow;
+
+    // check user permissions
+    if (!current_user_can('edit_posts') && !current_user_can('edit_pages') ) {
+    return;
+    }
+    // verify the post type - only do this if the type is principedia and if 
+    //user is in backend (is_admin just checks backend, not if user is actually admin)
+    if( is_admin() ) { 
+	if( !in_array( $typenow, array( 'principedia' ) ) ) {  return;  }
+    }
+
+
+    if ( get_user_option('rich_editing') == 'true') {
+        add_filter("mce_external_plugins", "principedia_add_frontend_tinymce_plugin");
+        add_filter('mce_buttons', 'principedia_register_frontend_button');
+    }
+}
+
+
+
+add_action('wp_head', 'principedia_add_frontend_button');
+
+
+
+
+
+
+
+
+/*****************************************/
+/*
 function fb_change_mce_options($initArray) {
 
     // Comma separated string od extendes tags
@@ -179,7 +219,7 @@ function fb_change_mce_options($initArray) {
     return $initArray;
 }
 add_filter( 'tiny_mce_before_init', 'fb_change_mce_options' );
-
+*/
 
 
 

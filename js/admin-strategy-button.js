@@ -1,10 +1,15 @@
 (function() {
+
     tinymce.PluginManager.add('principedia_tc_button', function( editor, url ) {
+
+        // check to see if this editor is being used in front end or backend
+        if(editor.documentBaseUrl.indexOf( 'wp-admin') > 0)  { var iconpath = '../wp-content/plugins/principedia/images/learning-strategy.png'; }
+	else { var iconpath = 'wp-content/plugins/principedia/images/learning-strategy.png'; }
+
+
         editor.addButton( 'principedia_tc_button', {
-            //text: 'Link to Learning Stategy',
-	    //tooltip : 'Insert Link to Learning Strategy',
 	    title: 'Link to Learning Strategy',
-	    image: '../wp-content/plugins/principedia/images/learning-strategy.png',
+	    image: iconpath,
             onclick: function() {
                 
 
