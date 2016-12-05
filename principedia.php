@@ -225,19 +225,33 @@ add_filter( 'tiny_mce_before_init', 'fb_change_mce_options' );
 
 /*********************** POPUP WINDOW *****************************/
 
-add_action( 'wp_ajax_principedia_insert_dialog', 'principedia_insert_gistpen_dialog' );
+
 
 function principedia_insert_gistpen_dialog() {
-        echo "<div style='margin:20px;'>";
+	echo "<script>";
+        echo "var args = top.tinymce.activeEditor.windowManager.getParams();";
+
+	echo "jQuery('.strategy-link').click(function() { ";
+	echo " var target_id = jQuery(this).attr('rel');";
+        echo " var markOpen  = '<a href=\"?post='+target_id+'\">', markClose = '</a>', highlight = markOpen + args.editor.selection.getContent() + markClose;";
+        echo " args.editor.focus();";
+        echo " args.editor.selection.setContent( markOpen + args.editor.selection.getContent() + markClose ); ";
+        echo " args.editor.windowManager.close(); ";
+	echo " });";
+
+
+        echo "</script>";
+        echo "<div style='border:solid 1px black;padding:20px;height:100%;overflowY:scroll;'>";
 	$args =  array( 'numberposts'	=> -1,'post_type' => 'strategy', 'orderby' => 'title', 'sort_order' => 'desc');
 	$strategies =  get_posts($args);
 	foreach($strategies as $strategy) {
-	   echo "<div><a href='#'>".$strategy->post_title."</a></div>";
+	   echo "<div><a href='#' class='strategy-link' rel='".$strategy->ID."'>".$strategy->post_title."</a></div>";
 	}
         echo "</div>";
    die();
-
 }
+
+add_action( 'wp_ajax_principedia_insert_dialog', 'principedia_insert_gistpen_dialog' );
 
 /******************************
 * Use custom template for course analysis pages
