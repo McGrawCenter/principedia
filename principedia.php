@@ -177,8 +177,9 @@ function principedia_add_frontend_button() {
     if (!current_user_can('edit_posts') && !current_user_can('edit_pages') ) {
     return;
     }
+
     // verify the post type - only do this if the type is principedia and if 
-    //user is in backend (is_admin just checks backend, not if user is actually admin)
+    // user is in backend (is_admin just checks backend, not if user is actually admin)
     if( is_admin() ) { 
 	if( !in_array( $typenow, array( 'principedia' ) ) ) {  return;  }
     }
@@ -229,25 +230,24 @@ add_filter( 'tiny_mce_before_init', 'fb_change_mce_options' );
 
 function principedia_insert_gistpen_dialog() {
 	echo "<script>";
-        echo "var args = top.tinymce.activeEditor.windowManager.getParams();";
+        echo "var args = top.tinymce.activeEditor.windowManager.getParams();\n";
 
 	echo "jQuery('.strategy-link').click(function() { ";
 	echo " var target_id = jQuery(this).attr('rel');";
-        echo " var markOpen  = '<a href=\"?post='+target_id+'\">', markClose = '</a>', highlight = markOpen + args.editor.selection.getContent() + markClose;";
+        echo " var markOpen  = '<a href=\"#\" class=\"learning-strategy-link\" rel=\"'+target_id+'\">', markClose = '</a>', highlight = markOpen + args.editor.selection.getContent() + markClose;";
         echo " args.editor.focus();";
         echo " args.editor.selection.setContent( markOpen + args.editor.selection.getContent() + markClose ); ";
         echo " args.editor.windowManager.close(); ";
 	echo " });";
 
-
         echo "</script>";
-        echo "<div style='border:solid 1px black;padding:20px;height:100%;overflowY:scroll;'>";
+        echo "<ul style='padding:20px;height:260px;width:450px;overflow-x:hidden;overflow-y:scroll;'>";
 	$args =  array( 'numberposts'	=> -1,'post_type' => 'strategy', 'orderby' => 'title', 'sort_order' => 'desc');
 	$strategies =  get_posts($args);
 	foreach($strategies as $strategy) {
-	   echo "<div><a href='#' class='strategy-link' rel='".$strategy->ID."'>".$strategy->post_title."</a></div>";
+	   echo "<li><a href='#' class='strategy-link' rel='".$strategy->ID."' style='cursor:pointer'>".$strategy->post_title."</a></li>";
 	}
-        echo "</div>";
+        echo "</ul>";
    die();
 }
 

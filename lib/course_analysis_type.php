@@ -98,9 +98,9 @@ function add_principedia_goals_box()
 	global $post;
 	$custom = get_post_custom( $post->ID );
 	if(isset($custom["goals"][0])) { $goals = $custom["goals"][0]; } else { $goals = ""; }
-	$settings = array('media_buttons' => false, 'textarea_name' => 'my_options[textareafield]');
+	//$settings = array('media_buttons' => false, 'textarea_name' => 'my_options[textareafield]');
 	?>
-	<p><?php wp_editor( $goals, "goals", $settings ); ?></p>
+	<p><?php wp_editor( $goals, "goals", $settings = array( 'tinymce' => true ) ); ?></p>
 	<?php
 
 }
@@ -190,6 +190,7 @@ function save_principedia_custom_fields(){
     update_post_meta($post->ID, "principedia_instructor", @$_POST['principedia_instructor']);
     update_post_meta($post->ID, "principedia_year", @$_POST['principedia_year']);
     update_post_meta($post->ID, "principedia_semester", @$_POST['principedia_semester']);
+
 
     update_post_meta($post->ID, "goals", @$_POST["goals"]);
     update_post_meta($post->ID, "instruction", @$_POST["instruction"]);

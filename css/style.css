@@ -36,3 +36,21 @@ ul ul ul li {
   font-size:0.9em;
   margin: 20px 0;
 }
+
+
+/**** LEARNING STATEGY LINKS AND POPUPS ******/
+
+
+.learning-strategy-link {
+
+}
+.learning-strategy-link-popup {
+  width:400px;
+  height:260px;
+  position: absolute;
+  background:red;
+  padding:20px;
+  box-shadow: 5px 5px 5px #BBB;
+}
+
+

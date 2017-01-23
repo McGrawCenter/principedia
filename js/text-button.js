@@ -1,58 +1,46 @@
 (function() {
-
-
-
-
-
     tinymce.PluginManager.add('principedia_tc_button', function( editor, url ) {
-
-
         editor.addButton( 'principedia_tc_button', {
+            //text: 'Link to Learning Stategy',
+	    //tooltip : 'Insert Link to Learning Strategy',
 	    title: 'Link to Learning Strategy',
-	    image: url+'/images/learning-strategy.png',
+	    image: '/wp-content/plugins/principedia/images/learning-strategy.png',
             onclick: function() {
                 
-		//if(editor.selection.getContent() != "") {
 
 				// Calls the pop-up modal
 				editor.windowManager.open({
+					// Modal settings
 					title: 'Link to Learning Strategy',
+					//width: jQuery( window ).width() * 0.7,
+					// minus head and foot of dialog box
+					//height: (jQuery( window ).height() - 36 - 50) * 0.7,
 					width: 500,
 					height:300,
 					
 					inline: 1,
 					id: 'principedia-insert-dialog',
-					buttons: [
-/*
-					   {
+					buttons: [{
 						text: 'Insert Learning Strategy Link',
 						id: 'principedia-button-insert',
 						class: 'insert',
 						onclick: function( e ) {
-							var markOpen  = '<a href="">', markClose = '</a>', highlight = markOpen + editor.selection.getContent() + markClose;
-
-							editor.focus();
-							editor.selection.setContent( markOpen + editor.selection.getContent() + markClose ); 
+							//insertShortcode();
+							//alert('blah');
+							editor.insertContent(' Hello ');
 						},
 					    },
-*/
 					    {
 						text: 'Cancel',
 						id: 'principedia-button-cancel',
 						onclick: 'close'
 					    }
 					],
-				},
- 
-			        //  Parameters and arguments we want available to the window.
-			        {
-				    editor: editor,   //    This is a reference to the current editor. We'll need this to insert the shortcode we create.
-				    jquery: jQuery,        //    If you want jQuery in the dialog, you must pass it here.                                          
-			        });
+				});
 
 				appendInsertDialog();
 
-		//}
+
 
 
 
@@ -78,31 +66,18 @@
 
 
 	function appendInsertDialog () {
-		//var dialogBody = jQuery( '#principedia-insert-dialog-body' ).append( '<img src="images/spinner.gif" />' );
-		var dialogBody = jQuery( '#principedia-insert-dialog-body' );
+		var dialogBody = jQuery( '#principedia-insert-dialog-body' ).append( '<img src="'+url+'/images/spinner.gif" />' );
+
 		// Get the form template from WordPress
 		jQuery.post( ajaxurl, {
 			action: 'principedia_insert_dialog'
 		}, function( response ) {
 			template = response;
+
 			dialogBody.children( '.loading' ).remove();
 			dialogBody.append( template );
 			jQuery( '.spinner' ).hide();
 		});
-	}
-
-
-
-
-	function insertStrategyLink () {
-		var markOpen  = '<a href="">',
-		    markClose = '</a>',
-		    highlight = markOpen + editor.selection.getContent() + markClose;
-
-		editor.focus();
-		editor.selection.setContent(
-			markOpen + editor.selection.getContent() + markClose
-		);
 	}
 
 

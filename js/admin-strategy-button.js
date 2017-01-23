@@ -19,31 +19,26 @@ jQuery( ".strategy-link" ).click(function() {
 
 				// Calls the pop-up modal
 				editor.windowManager.open({
-					// Modal settings
 					title: 'Link to Learning Strategy',
-					//width: jQuery( window ).width() * 0.7,
-					// minus head and foot of dialog box
-					//height: (jQuery( window ).height() - 36 - 50) * 0.7,
 					width: 500,
 					height:300,
 					
 					inline: 1,
 					id: 'principedia-insert-dialog',
 					buttons: [
+/*
 					   {
 						text: 'Insert Learning Strategy Link',
 						id: 'principedia-button-insert',
 						class: 'insert',
 						onclick: function( e ) {
-							//insertShortcode();
-							//alert('blah');
-							//editor.insertContent(' Hello ');
 							var markOpen  = '<a href="">', markClose = '</a>', highlight = markOpen + editor.selection.getContent() + markClose;
 
 							editor.focus();
 							editor.selection.setContent( markOpen + editor.selection.getContent() + markClose ); 
 						},
 					    },
+*/
 					    {
 						text: 'Cancel',
 						id: 'principedia-button-cancel',
@@ -95,7 +90,6 @@ jQuery( ".strategy-link" ).click(function() {
 			template = response;
 			dialogBody.children( '.loading' ).remove();
 			dialogBody.append( template );
-			dialogBody.append( "<a href='#' class='strategy-link'>Something</a>" );
 			jQuery( '.spinner' ).hide();
 		});
 	}

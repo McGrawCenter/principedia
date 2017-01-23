@@ -5,7 +5,7 @@
 if ( is_user_logged_in() ) {
     $editlink = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     if(strstr('?',$editlink)) { $editlink .= "&edit"; }
-    else { $editlink .= "&edit"; }
+    else { $editlink .= "?edit"; }
     $editlink =  '<a href="'.$editlink.'">Edit</a>';
 }
 

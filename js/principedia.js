@@ -13,6 +13,13 @@ jQuery( document ).ready(function() {
 
 
 
+   jQuery('.learning-strategy-link').click(function(e) {
+     var target_id = jQuery(this).attr('rel');
+     console.log(target_id);
+     jQuery(this).append('<div class="learning-strategy-link-popup">This is a div</div>');
+     e.preventDefault();
+    });
+
 
    // click event on second dropdown, populate list
    // note:the click handler needs to be a little different because course-choice is dynamically generated
