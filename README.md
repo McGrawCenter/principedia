@@ -1,26 +1,15 @@
 Principedia
 
-Recommended additional plugins:
- - Redirect After Login
- - Hide Admin Bar
- - CAS or other Authentication plugin
-
-
-
 ##Notes##
 
 Posts are generally used for news items and announcements. Pages are used for static pages, such as 'About'
 Three new custom post types are created by this plugin: 
 
-* Course Analyses
+* Course Analyses - Course analysis pages include descriptions of the specific course, reflections of learning goals, and information about course instruction. This type of page includes extra fields to record the course code, instructor, and year. Information about course goals, learning from classroom instruction, learning from assignments and external resources can be recorded.
 
-... Course analysis pages include descriptions of the specific course, reflections of learning goals, and information about course instruction. This type of page includes extra fields to record the course code, instructor, and year. Information about course goals, learning from classroom instruction, learning from assignments and external resources can be recorded.
+* Courses - Course pages contain information about the course more generally (PSY101), as opposed to a specific instance of a course (PSY101 Fall 2016)
 
-* Courses
-   *Course pages contain information about the course more generally (PSY101), as opposed to a specific instance of a course (PSY101 Fall 2016)
-
-* Strategies
-   *Strategies are pages that contain information about general strategies for effective learning.  These can be linked to from individual course analyses.
+* Strategies - *Strategies are pages that contain information about general strategies for effective learning.  These can be linked to from individual course analyses.
 
 ##Shortcodes##
 
@@ -35,3 +24,10 @@ Three new custom post types are created by this plugin:
 
 [new_course_analysis_form]
   Inserts a form allowing users to create a new course analysis
+  
+  
+  ##Recommended additional plugins##
+  
+ - Redirect After Login
+ - Hide Admin Bar
+ - CAS or other Authentication plugin
