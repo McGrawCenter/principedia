@@ -13,6 +13,7 @@ Posts are generally used for news items and announcements. Pages are used for st
 Three new custom post types are created by this plugin: 
 
 * Course Analyses
+
 ... Course analysis pages include descriptions of the specific course, reflections of learning goals, and information about course instruction. This type of page includes extra fields to record the course code, instructor, and year. Information about course goals, learning from classroom instruction, learning from assignments and external resources can be recorded.
 
 * Courses
