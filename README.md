@@ -26,7 +26,7 @@ Three new custom post types are created by this plugin:
   Inserts a form allowing users to create a new course analysis
   
   
-  ##Recommended additional plugins##
+##Recommended additional plugins##
   
  - Redirect After Login
  - Hide Admin Bar
