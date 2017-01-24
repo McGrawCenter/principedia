@@ -11,6 +11,8 @@ Three new custom post types are created by this plugin:
 
 * Strategies - *Strategies are pages that contain information about general strategies for effective learning.  These can be linked to from individual course analyses.
 
+Populating Departments List
+
 ##Shortcodes##
 
 [course_analysis_select]
