@@ -44,13 +44,24 @@ ul ul ul li {
 .learning-strategy-link {
 
 }
-.learning-strategy-link-popup {
+#learning-strategy-link-popup {
   width:400px;
   height:260px;
   position: absolute;
-  background:red;
+  background:#EFEFEF;
   padding:20px;
-  box-shadow: 5px 5px 5px #BBB;
+  box-shadow: 2px 2px #BBB;
+  border:solid 1px #AAA;
+  border-radius: 25px;
+  line-height:1.2em;
 }
 
+.learning-strategy-popup-content {
+  height:130px;
+  overflow:hidden;
+  font-size:90%;
+}
 
+.strategy-link.selected {
+  color:red;
+}

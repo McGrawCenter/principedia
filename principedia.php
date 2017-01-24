@@ -233,11 +233,15 @@ function principedia_insert_gistpen_dialog() {
         echo "var args = top.tinymce.activeEditor.windowManager.getParams();\n";
 
 	echo "jQuery('.strategy-link').click(function() { ";
+	echo "  jQuery('.strategy-link').removeClass('selected');";
+	echo "  jQuery(this).addClass('selected');";
+/*
 	echo " var target_id = jQuery(this).attr('rel');";
         echo " var markOpen  = '<a href=\"#\" class=\"learning-strategy-link\" rel=\"'+target_id+'\">', markClose = '</a>', highlight = markOpen + args.editor.selection.getContent() + markClose;";
         echo " args.editor.focus();";
         echo " args.editor.selection.setContent( markOpen + args.editor.selection.getContent() + markClose ); ";
         echo " args.editor.windowManager.close(); ";
+*/
 	echo " });";
 
         echo "</script>";

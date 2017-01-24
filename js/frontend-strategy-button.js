@@ -23,19 +23,21 @@
 					inline: 1,
 					id: 'principedia-insert-dialog',
 					buttons: [
-/*
+
 					   {
-						text: 'Insert Learning Strategy Link',
+						text: 'Insert Link',
 						id: 'principedia-button-insert',
 						class: 'insert',
 						onclick: function( e ) {
-							var markOpen  = '<a href="">', markClose = '</a>', highlight = markOpen + editor.selection.getContent() + markClose;
+							var target_id = jQuery('.strategy-link.selected').attr('rel');
+							var markOpen  = '<a href=\"#\" class=\"learning-strategy-link\" rel=\"'+target_id+'\">',markClose = '</a>', highlight = markOpen + editor.selection.getContent() + markClose;
 
 							editor.focus();
-							editor.selection.setContent( markOpen + editor.selection.getContent() + markClose ); 
+							editor.selection.setContent( markOpen + editor.selection.getContent() + markClose );
+							editor.windowManager.close();
 						},
 					    },
-*/
+
 					    {
 						text: 'Cancel',
 						id: 'principedia-button-cancel',

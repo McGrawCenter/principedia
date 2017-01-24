@@ -3,10 +3,11 @@
  * The template for displaying course analyses
  */
 if ( is_user_logged_in() ) {
+
     $editlink = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     if(strstr('?',$editlink)) { $editlink .= "&edit"; }
     else { $editlink .= "?edit"; }
-    $editlink =  '<a href="'.$editlink.'">Edit</a>';
+    $editlink =  '<a href="'.$editlink.'"><img src="'.plugins_url().'/principedia/images/edit-icon.png" alt="edit" style="float:right"/></a>';
 }
 
 if(isset($_GET['edit']) && is_user_logged_in()) { $edit = true; } else { $edit = false; }
@@ -57,7 +58,7 @@ $editor_settings = array(
 
 
 ?>
-
+					<div id="learning-strategy-link-popup" style="display:none;">Loading....</div>
 <?php
 	//IF EDIT VARIABLE ABOVE IS SET TO TRUE, CREATE AN EDIT FORM, OTHERWISE JUST PRINT OUT THE TEXT
 ?>

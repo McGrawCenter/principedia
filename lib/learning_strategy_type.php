@@ -15,6 +15,7 @@ function create_strategy_posttype() {
 			'supports' => array('title','editor','revisions'),
 			'hierarchical' => false,
 			'public' => true,
+  			'show_in_rest' => true,
 			'taxonomies' => array('category'),
 			'show_in_menu' => true,
 			'menu_position' => 8,

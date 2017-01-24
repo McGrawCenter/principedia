@@ -5,21 +5,14 @@
 jQuery( document ).ready(function() {
 
 
+
+   // For the course analysis dropdown navigation
+
    jQuery('#selectdept').change(function(){
      var deptid = jQuery(this).find(":selected").attr('deptid');
      var deptname = jQuery(this).find(":selected").text();
      populateCourseDropdown(deptname);
    });
-
-
-
-   jQuery('.learning-strategy-link').click(function(e) {
-     var target_id = jQuery(this).attr('rel');
-     console.log(target_id);
-     jQuery(this).append('<div class="learning-strategy-link-popup">This is a div</div>');
-     e.preventDefault();
-    });
-
 
    // click event on second dropdown, populate list
    // note:the click handler needs to be a little different because course-choice is dynamically generated
@@ -30,12 +23,7 @@ jQuery( document ).ready(function() {
      populatelist(courseid);
    });
 
-/*
-   jQuery( document ).on( 'click', '.course-choice', function() {
-     var courseid = jQuery(this).text();
-     populatelist(courseid);
-   });
-*/
+
 
   function populatelist(courseid){
     var remote;
@@ -76,6 +64,50 @@ jQuery( document ).ready(function() {
     });
 
   }
+
+
+
+
+   // learning strategy link and popup behaviors
+
+   jQuery('.learning-strategy-link').mouseover(function(e) {
+     var target_id = jQuery(this).attr('rel');
+     jQuery('#learning-strategy-link-popup').html('');
+     jQuery.ajax({
+        url: 'http://etcpanel.princeton.edu/principedia/wp-json/wp/v2/strategy/'+target_id,
+        dataType: 'json',
+        type: 'GET',
+        success: function(data) {
+	   console.log(data);
+            var html = "<h6>"+data.title.rendered+"</h6>";
+            html += "<div class='learning-strategy-popup-content'>"+data.content.rendered+"</div>";
+            html += "<div style='width:100%;text-align:right;margin-top:10px;'><a href='"+data.link+"'>Read more</a><div>";
+	    jQuery('#learning-strategy-link-popup').html(html);
+        },
+        error: function() {
+            console.log('could not retrieve json data');
+        }
+     });
+     //var parentwidth = (jQuery(this).parent().width()-400)/2;
+     //var left = jQuery(this).parent().position().left + parentwidth;
+     var left = jQuery(this).position().left;
+     var top = jQuery(this).position().top;
+     
+     jQuery('#learning-strategy-link-popup').css({top: top+20, left: left, position:'absolute', display: 'inline-block'});
+    });
+
+   jQuery('.learning-strategy-link').mouseout(function(e) {
+     jQuery('#learning-strategy-link-popup').hide();
+    });
+
+   jQuery('#learning-strategy-link-popup').mouseover(function(e) {
+     jQuery('#learning-strategy-link-popup').show();
+    });
+
+   jQuery('#learning-strategy-link-popup').mouseout(function(e) {
+     jQuery('#learning-strategy-link-popup').hide();
+    });
+
 
 
 
