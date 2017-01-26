@@ -42,18 +42,8 @@ function principedia_install () {
 
     global $wpdb;
 
-    $create_ca_page = 'Create A Course Analysis Entry';
-    $create_ca_page_slug = 'create-course-analysis';
-
-    // the menu entry...
-    //delete_option("my_plugin_page_title");
-    //add_option("my_plugin_page_title", $the_page_title, '', 'yes');
-    // the slug...
-    //delete_option("my_plugin_page_name");
-    //add_option("my_plugin_page_name", $the_page_name, '', 'yes');
-    // the id...
-    //delete_option("my_plugin_page_id");
-    //add_option("my_plugin_page_id", '0', '', 'yes');
+    $create_ca_page = 'Sample Course Analysis';
+    $create_ca_page_slug = 'sample-analysis';
 
     $the_page = get_page_by_title( $create_ca_page );
 
@@ -62,12 +52,12 @@ function principedia_install () {
         // Create post object
         $_p = array();
         $_p['post_title'] = $create_ca_page;
-        $_p['post_content'] = "This text may be overridden by the plugin. You shouldn't edit it.";
+        $_p['post_content'] = "This is a sample course anlysis";
         $_p['post_status'] = 'publish';
         $_p['post_type'] = 'page';
         $_p['comment_status'] = 'closed';
         $_p['ping_status'] = 'closed';
-        $_p['post_category'] = array(1); // the default 'Uncatrgorised'
+        $_p['post_category'] = array(1); // the default 'Uncategorised'
 
         // Insert the post into the database
         $the_page_id = wp_insert_post( $_p );
@@ -310,7 +300,7 @@ if(isset($_POST['ca_id'])) {
   /******************************
   * Course analysis create form submission
   ******************************/
-  if( isset($_POST['course_title']) &&  isset($_POST['course_code']) &&  isset($_POST['semester']) &&  isset($_POST['year']) &&  isset($_POST['instructor']) ) {
+  if( isset($_POST['course_title']) &&  isset($_POST['course_code']) &&  isset($_POST['semester']) &&  isset($_POST['department']) &&  isset($_POST['year']) &&  isset($_POST['instructor']) ) {
     $user = wp_get_current_user();
 
     $post_id = wp_insert_post( array('author'=>$user->data->user_login, 'post_status'=>'publish',  'post_title'=> $_POST['course_title'],  'post_type'=>'principedia'));
@@ -325,6 +315,34 @@ if(isset($_POST['ca_id'])) {
     add_post_meta($post_id, "assignments", " ");
     add_post_meta($post_id, "resources", " ");
     add_post_meta($post_id, "shouldknow", " ");
+
+    // create course post if necessary and assign department category
+    // if a course page does not exist for this course ID, then create it.
+
+    $courseid = $_POST['course_code'];
+    $course_exists = get_page_by_title($courseid, OBJECT, 'course');
+
+    if(!$course_exists) {
+
+	    $new_post = array(
+		'post_title' => $courseid,
+		'post_content' => '',
+		'post_status' => 'publish',
+		'post_date' => date('Y-m-d H:i:s'),
+		'post_author' => '',
+		'post_type' => 'course',
+		'post_category' => array(0)
+	    );
+
+
+
+	    $course_post_id = wp_insert_post($new_post);
+
+	    wp_set_object_terms( $course_post_id, 'Computer Science', 'department' );
+    }
+
+    // END - if a course page does not exist for this course ID, then create it.
+
 
     $linkto = get_permalink($post_id);
 

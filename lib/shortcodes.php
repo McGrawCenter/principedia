@@ -74,7 +74,7 @@ function insert_department_list() {
 
 }
 
-add_shortcode( 'dept_list' , 'insert_department_list' );
+add_shortcode( 'course_analysis_list' , 'insert_department_list' );
 
 
 
@@ -83,7 +83,7 @@ add_shortcode( 'dept_list' , 'insert_department_list' );
 /* *********************************************
 *  Shortcode to insert a list of course analyses order by Department and by Course
 ********************************************* */
-
+/*
 
 function insert_course_list() {
 
@@ -123,7 +123,7 @@ function insert_course_list() {
 }
 
 add_shortcode( 'course_list' , 'insert_course_list' );
-
+*/
 
 
 
@@ -149,6 +149,10 @@ function insert_new_course_analysis_form() {
 	<option value='S' selected=''>Spring</option>
 	<option value='SU' selected=''>Summer</option>
       </select>
+    </p>
+    <p>
+      <label for='year'>Department</label>
+      <input type='text' name='department' id='department' value='' placeholder='Computer Science' />
     </p>
     <p>
       <label for='year'>Year</label>
@@ -227,20 +231,6 @@ add_shortcode( 'strategy_list' , 'insert_strategies_list' );
 
 
 
-/* *********************************************
-*
-********************************************* */
-
-
-function insert_learningstrategy_link() {
-
-return "This is an LSD";
-}
-
-
-add_shortcode( 'learningstrategy_link' , 'insert_learningstrategy_link' );
-
-
 
 
 
@@ -276,7 +266,7 @@ return $html;
 }
 
 
-add_shortcode( 'course_analysis_nav' , 'insert_course_analysis_nav' );
+add_shortcode( 'course_analysis_select' , 'insert_course_analysis_nav' );
 
 
 
