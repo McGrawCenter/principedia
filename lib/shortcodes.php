@@ -145,7 +145,7 @@ function insert_new_course_analysis_form() {
     <p>
       <label for='semester'>Semester</label>
       <select name='semester' id='semester'>
-	<option value='F' selected=''>Fall</option>
+	<option value='F' selected='selected'>Fall</option>
 	<option value='S' selected=''>Spring</option>
 	<option value='SU' selected=''>Summer</option>
       </select>
@@ -184,18 +184,13 @@ add_shortcode( 'new_course_analysis_form' , 'insert_new_course_analysis_form' );
 function insert_strategies_list() {
 
 
-
 	require_once(ABSPATH . "wp-admin/includes/taxonomy.php");
 
-	$parent_term = get_term_by( 'name', 'Learning Strategy', 'category' );
-	$parent_id = $parent_term->term_id;
-
-	$terms = get_term_children( $parent_id, 'category' );
-
+	$terms = get_terms( 'stratcat' );
 	if ( ! empty( $terms ) && ! is_wp_error( $terms ) ){
 	    echo '<ul>';
 	    foreach ( $terms as $term_id ) {
-		$term = get_term( $term_id, 'category' );
+		$term = get_term( $term_id, 'stratcat' );
 
 		echo '<li>' . $term->name . '</li>';
 	    	    wp_reset_query();
@@ -204,7 +199,7 @@ function insert_strategies_list() {
 			'order'   => 'ASC',
 			'tax_query' => array(
 			    array(
-				'taxonomy' => 'category',
+				'taxonomy' => 'stratcat',
 				'field' => 'slug',
 				'terms' => $term->name
 			    ),
