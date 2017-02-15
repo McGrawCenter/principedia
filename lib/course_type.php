@@ -1,16 +1,9 @@
 <?php
-
-
-
-
-
-
 // Our custom post type function
 function create_course_posttype() {
 
-    if(!post_type_exists('course')) {
-
 	register_post_type( 'course',
+	// CPT Options
 		array(
 			'labels' => array(
 				'name' => __( 'Courses' ),
@@ -29,59 +22,9 @@ function create_course_posttype() {
 			'rewrite' => array('slug' => 'course'),
 		)
 	);
-   	create_course_dept_taxonomy();
-    	$post_id = create_course_sample_post(); 
-	$term_obj = get_term_by('name','Art','department');
- 	wp_set_object_terms( $post_id, $term_obj->term_id, 'department' ); 
-    } // end if post type not exists
-
-
-
-
 }
-
+// Hooking up our function to theme setup
 add_action( 'init', 'create_course_posttype' );
-
-
-
-
-
-/************************
-* Populate one course analysis with sample info
-*************************/
-function create_course_sample_post() {
-    global $wpdb;
-
-    $create_c_page = 'ART 123';
-    $create_c_page_slug = 'art123';
-
-    $the_page = get_page_by_title( $create_c_page, 'OBJECT', 'course' );
-
-
-    if ( ! $the_page ) {
-        // Create post object
-        $_p = array();
-        $_p['post_title'] = $create_c_page;
-        $_p['post_content'] = "Sample course";
-        $_p['post_status'] = 'publish';
-        $_p['post_type'] = 'course';
-        $_p['comment_status'] = 'closed';
-        $_p['ping_status'] = 'closed';
-        $_p['post_category'] = array('General Topics'); 
-
-        // Insert the post into the database
-        return wp_insert_post( $_p );
-	
-
-    }
-    else {
-	return false;
-    }
-
-}
-
-
-
 
 
 
@@ -164,6 +107,7 @@ add_filter( 'the_content', 'principedia_add_ca_list' );
 /************************* CREATE DEPARTMENTS TAXONOMY *********************************/
 
 
+add_action( 'init', 'create_course_dept_taxonomy' );
 
 function create_course_dept_taxonomy() {
 
@@ -203,12 +147,6 @@ function create_course_dept_taxonomy() {
 		)
 	);
 
-	// INSERT SOME SAMPLE CATEGORIES
-	$categories = array('Art','Anthropology','Computer Science', 'Economics', 'History', 'Philosophy', 'Spanish');
-
-	foreach($categories as $cat) {
-	   wp_insert_term($cat, 'department');
-	}
 
 
 

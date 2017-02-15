@@ -133,31 +133,35 @@ add_shortcode( 'course_list' , 'insert_course_list' );
 
 
 function insert_new_course_analysis_form() {
+
+  if(is_user_logged_in()) {
+
   echo "<form name='new_course_analysis' method='POST'>
     <p>
       <label for='course_title'>Course title</label>
-      <input type='text' name='course_title' id='course_title' value='' placeholder='Introduction to Computer Science' />
+      <input type='text' name='course_title' id='course_title' value='' placeholder='Introduction to Computer Science' onfocus='this.placeholder=\"\"'/>
     </p>
     <p>
       <label for='course_code'>Course code</label>
-      <input type='text' name='course_code' id='course_code' value='' placeholder='COM101' />
+      <input type='text' name='course_code' id='course_code' value='' placeholder='COM101'  onfocus='this.placeholder=\"\"' />
     </p>
     <p>
       <label for='semester'>Semester</label>
       <select name='semester' id='semester'>
-	<option value='F' selected='selected'>Fall</option>
-	<option value='S' selected=''>Spring</option>
-	<option value='SU' selected=''>Summer</option>
+	<option value='F' >Fall</option>
+	<option value='S' selected>Spring</option>
+	<option value='SU' >Summer</option>
       </select>
-    </p>
-    <p>
-      <label for='year'>Department</label>
-      <input type='text' name='department' id='department' value='' placeholder='Computer Science' />
     </p>
     <p>
       <label for='year'>Year</label>
       <input type='text' name='year' id='year' value='' />
     </p>
+    <p>
+      <label for='year'>Department</label>
+      <input type='text' name='department' id='department' value='' placeholder='Computer Science'  onfocus='this.placeholder=\"\"'/>
+    </p>
+
     <p>
       <label for='instructor'>Instructor</label>
       <input type='text' name='instructor' id='instructor' value='' />
@@ -167,6 +171,10 @@ function insert_new_course_analysis_form() {
     </p>
     </form>
   ";
+  }
+  else {
+    echo "You must be logged in to create a course analysis";
+  }
 
 }
 
@@ -184,13 +192,18 @@ add_shortcode( 'new_course_analysis_form' , 'insert_new_course_analysis_form' );
 function insert_strategies_list() {
 
 
+
 	require_once(ABSPATH . "wp-admin/includes/taxonomy.php");
 
-	$terms = get_terms( 'stratcat' );
+	$parent_term = get_term_by( 'name', 'Learning Strategy', 'category' );
+	$parent_id = $parent_term->term_id;
+
+	$terms = get_term_children( $parent_id, 'category' );
+
 	if ( ! empty( $terms ) && ! is_wp_error( $terms ) ){
 	    echo '<ul>';
 	    foreach ( $terms as $term_id ) {
-		$term = get_term( $term_id, 'stratcat' );
+		$term = get_term( $term_id, 'category' );
 
 		echo '<li>' . $term->name . '</li>';
 	    	    wp_reset_query();
@@ -199,7 +212,7 @@ function insert_strategies_list() {
 			'order'   => 'ASC',
 			'tax_query' => array(
 			    array(
-				'taxonomy' => 'stratcat',
+				'taxonomy' => 'category',
 				'field' => 'slug',
 				'terms' => $term->name
 			    ),

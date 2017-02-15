@@ -1,11 +1,12 @@
 <?php
 
 
+
+
+
+
 // Our custom post type function
 function create_ca_posttype() {
-
-
-    if(!post_type_exists( 'principedia' )) {
 
 	register_post_type( 'principedia',
 	// CPT Options
@@ -27,59 +28,9 @@ function create_ca_posttype() {
 			'rewrite' => array('slug' => 'principedia'),
 		)
 	);
-
-	create_analysis_sample_post();
-    } // end if post type exists
-
 }
 
 add_action( 'init', 'create_ca_posttype' );
-
-
-
-
-
-/************************
-* Populate one course analysis with sample info
-*************************/
-function create_analysis_sample_post() {
-
-    global $wpdb;
-    $create_ca_page = 'Sample Course Analysis';
-    $create_ca_page_slug = 'sample-analysis';
-
-    $the_page = get_page_by_title( $create_ca_page, 'OBJECT', 'principedia' );
-
-
-    if ( ! $the_page ) {
-        // Create post object
-        $_p = array();
-        $_p['post_title'] = $create_ca_page;
-        $_p['post_content'] = "This is a sample course analysis";
-        $_p['post_status'] = 'publish';
-        $_p['post_type'] = 'principedia';
-        $_p['comment_status'] = 'closed';
-        $_p['ping_status'] = 'closed';
-        $_p['post_category'] = array(1); // the default 'Uncategorized'
-
-        // Insert the post into the database
-        $post_id = wp_insert_post( $_p );
-	add_post_meta($post_id, 'principedia_course', 'ART 123');
-	add_post_meta($post_id, 'principedia_year', '2017');
-	add_post_meta($post_id, 'principedia_semester', 'F');
-	add_post_meta($post_id, 'principedia_instructor', 'My Professor');
-    }
-    else {
-        // the plugin may have been previously active and the page may just be trashed...
-        //$the_page_id = $the_page->ID;
-        //make sure the page is not trashed...
-        //$the_page->post_status = 'publish';
-        //$the_page_id = wp_update_post( $the_page );
-
-    }
-
-}
-
 
 
 
