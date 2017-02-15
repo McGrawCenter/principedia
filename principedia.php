@@ -27,7 +27,6 @@ $dir = plugin_dir_path( __FILE__ );
 
 
 include($dir.'lib/course_analysis_type.php');
-
 include($dir.'lib/learning_strategy_type.php');
 include($dir.'lib/course_type.php');
 include($dir.'lib/shortcodes.php');
@@ -40,43 +39,6 @@ include($dir.'lib/shortcodes.php');
 
 function principedia_install () {
 
-    global $wpdb;
-
-    $create_ca_page = 'Sample Course Analysis';
-    $create_ca_page_slug = 'sample-analysis';
-
-    $the_page = get_page_by_title( $create_ca_page );
-
-    if ( ! $the_page ) {
-
-        // Create post object
-        $_p = array();
-        $_p['post_title'] = $create_ca_page;
-        $_p['post_content'] = "This is a sample course anlysis";
-        $_p['post_status'] = 'publish';
-        $_p['post_type'] = 'page';
-        $_p['comment_status'] = 'closed';
-        $_p['ping_status'] = 'closed';
-        $_p['post_category'] = array(1); // the default 'Uncategorised'
-
-        // Insert the post into the database
-        $the_page_id = wp_insert_post( $_p );
-
-    }
-    else {
-        // the plugin may have been previously active and the page may just be trashed...
-
-        $the_page_id = $the_page->ID;
-
-        //make sure the page is not trashed...
-        $the_page->post_status = 'publish';
-        $the_page_id = wp_update_post( $the_page );
-
-    }
-
-    delete_option( 'my_plugin_page_id' );
-    add_option( 'my_plugin_page_id', $the_page_id );
-
 
 }
 
@@ -88,6 +50,9 @@ function principedia_remove () {
 
 /* Runs when plugin is activated */
 register_activation_hook(__FILE__,'principedia_install'); 
+
+
+
 
 /* Runs on plugin deactivation*/
 register_deactivation_hook( __FILE__, 'principedia_remove' );
@@ -259,13 +224,8 @@ function course_analysis_custom_post_type_template($single_template) {
      }
      return $single_template;
 }
+
 add_filter( 'single_template', 'course_analysis_custom_post_type_template' );
-
-
-
-
-
-
 
 
 
@@ -301,60 +261,53 @@ if(isset($_POST['ca_id'])) {
   * Course analysis create form submission
   ******************************/
   if( isset($_POST['course_title']) &&  isset($_POST['course_code']) &&  isset($_POST['semester']) &&  isset($_POST['department']) &&  isset($_POST['year']) &&  isset($_POST['instructor']) ) {
+    $user = wp_get_current_user();
 
-    if(is_user_logged_in()) {
-	    $user = wp_get_current_user();
+    $post_id = wp_insert_post( array('author'=>$user->data->user_login, 'post_status'=>'publish',  'post_title'=> $_POST['course_title'],  'post_type'=>'principedia'));
 
-	    $post_id = wp_insert_post( array('author'=>$user->data->user_login, 'post_status'=>'publish',  'post_title'=> $_POST['course_title'],  'post_type'=>'principedia'));
+    update_post_meta($post_id, "principedia_course", 		$_POST['course_code']);
+    update_post_meta($post_id, "principedia_semester", 		$_POST['semester']);
+    update_post_meta($post_id, "principedia_year", 		$_POST['year']);
+    update_post_meta($post_id, "principedia_instructor", 	$_POST['instructor']);
 
-	    update_post_meta($post_id, "principedia_course", 		$_POST['course_code']);
-	    update_post_meta($post_id, "principedia_semester", 		$_POST['semester']);
-	    update_post_meta($post_id, "principedia_year", 		$_POST['year']);
-	    update_post_meta($post_id, "principedia_instructor", 	$_POST['instructor']);
+    add_post_meta($post_id, "goals", " ");
+    add_post_meta($post_id, "instruction", " ");
+    add_post_meta($post_id, "assignments", " ");
+    add_post_meta($post_id, "resources", " ");
+    add_post_meta($post_id, "shouldknow", " ");
 
-	    add_post_meta($post_id, "goals", " ");
-	    add_post_meta($post_id, "instruction", " ");
-	    add_post_meta($post_id, "assignments", " ");
-	    add_post_meta($post_id, "resources", " ");
-	    add_post_meta($post_id, "shouldknow", " ");
+    // create course post if necessary and assign department category
+    // if a course page does not exist for this course ID, then create it.
 
-	    // create course post if necessary and assign department category
-	    // if a course page does not exist for this course ID, then create it.
+    $courseid = $_POST['course_code'];
+    $course_exists = get_page_by_title($courseid, OBJECT, 'course');
 
-	    $courseid = $_POST['course_code'];
-	    $course_exists = get_page_by_title($courseid, OBJECT, 'course');
+    if(!$course_exists) {
 
-	    if(!$course_exists) {
-
-		    $new_post = array(
-			'post_title' => $courseid,
-			'post_content' => '',
-			'post_status' => 'publish',
-			'post_date' => date('Y-m-d H:i:s'),
-			'post_author' => '',
-			'post_type' => 'course',
-			'post_category' => array(0)
-		    );
+	    $new_post = array(
+		'post_title' => $courseid,
+		'post_content' => '',
+		'post_status' => 'publish',
+		'post_date' => date('Y-m-d H:i:s'),
+		'post_author' => '',
+		'post_type' => 'course',
+		'post_category' => array(0)
+	    );
 
 
 
-		    $course_post_id = wp_insert_post($new_post);
+	    $course_post_id = wp_insert_post($new_post);
 
-		    wp_set_object_terms( $course_post_id, 'Computer Science', 'department' );
-	    }
-
-	    // END - if a course page does not exist for this course ID, then create it.
-
-
-	    $linkto = get_permalink($post_id);
-
-	    header('Location: '.$linkto);
-	    die();
-    } // end if logged in
-    else { 
-	    header('Location: index.php');
-	    die();
+	    wp_set_object_terms( $course_post_id, $_POST['department'], 'department' );
     }
+
+    // END - if a course page does not exist for this course ID, then create it.
+
+
+    $linkto = get_permalink($post_id);
+
+    header('Location: '.$linkto);
+    die();
   }
 }
 
@@ -390,8 +343,8 @@ function get_section_comments($post_id, $meta_name, $meta_value) {
 // this is not the best way to do this. Need to figure out how to use a custom template instead
 function format_section_comments($comments) {
 	$html = "<div class='section-comments'>";
-	$html .= "<div><h5>COMMENTS ON THIS SECTION</h5></div>";
-
+	$html .= "<div style='text-align:right;width:100%;'><a href='#' class='showcomments' rel='section-comments'>Comments</a></div>";
+	$html .= "<div class='section-comments' style='display:none;'>";
 	foreach($comments as $comment) {
 	if($comment->comment_approved == 1) {
 	  $html .= "<div><strong>{$comment->comment_author}</strong> </div>";
@@ -399,6 +352,7 @@ function format_section_comments($comments) {
 	  $html .= "<div>{$comment->comment_content}</div>";
 	}
 	}
+	$html .= "</div>";
 	$html .= "</div>";
   echo $html;
 }
