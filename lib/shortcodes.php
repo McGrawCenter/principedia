@@ -28,6 +28,7 @@ function insert_department_list() {
 
 	// level 1 - list of departments
 	$terms = get_terms( 'department' );
+
 	if ( ! empty( $terms ) && ! is_wp_error( $terms ) ){
 	    echo '<ul>';
 	    foreach ( $terms as $term ) {
@@ -59,7 +60,9 @@ function insert_department_list() {
 				$args =  array( 'numberposts'	=> -1,'post_type' => 'principedia','meta_key' => 'principedia_course','meta_value' => $post->post_title );
 				$analyses =  get_posts($args);
 				foreach($analyses as $analysis) {
-				   echo "<li><a href='{$analysis->guid}'>{$analysis->post_title}</a></li>";
+				   $meta = get_post_meta($analysis->ID);
+
+				   echo "<li><a href='{$analysis->guid}'>{$analysis->post_title}</a> {$meta['principedia_semester'][0]} {$meta['principedia_year'][0]}</li>";
 				}
 				echo '</ul>';
 
@@ -252,9 +255,9 @@ add_shortcode( 'strategy_list' , 'insert_strategies_list' );
 function insert_course_analysis_nav() {
 
 $html = "";
-$html .= "<label for='selectdept' class='ca_dropdown_label'>Select Department</label> ";
+//$html .= "<label for='selectdept' class='ca_dropdown_label'></label> ";
 $html .= "<select name='selectdept' id='selectdept'>";
-$html .= "  <option></option>";
+$html .= "  <option value='' disabled selected>Select Department</option>";
 
 if($departments = get_terms('department')) {
   foreach($departments as $dept) {

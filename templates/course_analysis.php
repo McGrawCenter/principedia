@@ -58,7 +58,12 @@ $editor_settings = array(
 
 
 ?>
-					<div id="learning-strategy-link-popup" style="display:none;">Loading....</div>
+					<div id="learning-strategy-link-popup" style="display:none;">
+					<div style='text-align:right'><a href='#' class='close'>x</a></div>
+					<div id="learning-strategy-link-popup-content">
+						Loading....
+					</div>
+					</div>
 <?php
 	//IF EDIT VARIABLE ABOVE IS SET TO TRUE, CREATE AN EDIT FORM, OTHERWISE JUST PRINT OUT THE TEXT
 ?>
@@ -77,12 +82,9 @@ $editor_settings = array(
 
 						<?php
 						if(!$edit) {
-						   if($c = get_section_comments($post->ID,'section','goals')) { format_section_comments($c); }
+						   if($c = get_section_comments($post->ID,'section','goals')) { format_section_comments('goals',$c); }
 						}
 						?>
-
-
-
 
 
 					<h3>Learning From Classroom Instruction</h3>
@@ -98,11 +100,9 @@ $editor_settings = array(
 
 						<?php 
 						if(!$edit) {
-						  if($c = get_section_comments($post->ID,'section','instruction')) { format_section_comments($c); }
+						  if($c = get_section_comments($post->ID,'section','instruction')) { format_section_comments('instruction',$c); }
 						}
 						?>
-
-
 
 
 					<h3>Learning For and From Assignments</h3>
@@ -118,7 +118,7 @@ $editor_settings = array(
 
 						<?php
 						if(!$edit) {
-						  if($c = get_section_comments($post->ID,'section','assignments')) { format_section_comments($c); }
+						  if($c = get_section_comments($post->ID,'section','assignments')) { format_section_comments('assignments',$c); }
 						}
 						?>
 
@@ -139,7 +139,7 @@ $editor_settings = array(
 
 						<?php
 						if(!$edit) {
-						  if($c = get_section_comments($post->ID,'section','resources')) { format_section_comments($c); }
+						  if($c = get_section_comments($post->ID,'section','resources')) { format_section_comments('resources',$c); }
 						}
 						?>
 
@@ -157,7 +157,7 @@ $editor_settings = array(
 
 						<?php
 						if(!$edit) {
-						  if($c = get_section_comments($post->ID,'section','shouldknow')) { format_section_comments($c); }
+						  if($c = get_section_comments($post->ID,'section','shouldknow')) { format_section_comments('shouldknow',$c); }
 						}
 						?>
 

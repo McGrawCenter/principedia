@@ -31,10 +31,14 @@ ul ul ul li {
 /*** COURSE ANALYSIS COMMENTS ***/
 
 .section-comments {
-  border:solid 1px grey;
-  padding:20px;
+  padding:10px;
   font-size:0.9em;
   margin: 20px 0;
+  text-align:right;
+}
+.comments-list {
+  display:none;
+  text-align:left;
 }
 
 
@@ -49,7 +53,7 @@ ul ul ul li {
   height:260px;
   position: absolute;
   background:#EFEFEF;
-  padding:20px;
+  padding:10px 20px;
   box-shadow: 2px 2px #BBB;
   border:solid 1px #AAA;
   border-radius: 25px;
@@ -65,3 +69,12 @@ ul ul ul li {
 .strategy-link.selected {
   color:red;
 }
+
+
+/****** Course Analysis Select Dropdown *******/
+
+#selectdept, #selectcourse {
+  width:80%;
+  min-width:250px;
+}
+

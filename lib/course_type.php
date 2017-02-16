@@ -84,9 +84,11 @@ add_action( 'save_post', 'save_course_custom_fields' );
 function principedia_add_ca_list( $content ) {
 
     if(get_post_type() == 'course') {
+	global $post;
+
         $content .= "<h4>Associated course analyses</h4>";
 	$content .= '<ul>';
-	$args =  array( 'numberposts'	=> -1,'post_type' => 'principedia','meta_key' => 'principedia_course','meta_value' => 'ANT 335' );
+	$args =  array( 'numberposts'	=> -1,'post_type' => 'principedia','meta_key' => 'principedia_course','meta_value' => $post->post_title );
 	$analyses =  get_posts($args);
 	foreach($analyses as $analysis) {
 	   $content .=  "<li><a href='{$analysis->guid}'>{$analysis->post_title}</a></li>";
