@@ -84,53 +84,6 @@ add_shortcode( 'course_analysis_list' , 'insert_department_list' );
 
 
 /* *********************************************
-*  Shortcode to insert a list of course analyses order by Department and by Course
-********************************************* */
-/*
-
-function insert_course_list() {
-
-	$terms = get_terms( 'department' );
-	if ( ! empty( $terms ) && ! is_wp_error( $terms ) ){
-	    echo '<ul>';
-	    foreach ( $terms as $term ) {
-		echo '<li>' . $term->name . '</li>';
-
-
-		   // second level
-	    	    wp_reset_query();
-		    $args = array('post_type' => 'course',
-			'tax_query' => array(
-			    array(
-				'taxonomy' => 'department',
-				'field' => 'slug',
-				'terms' => $term->slug,
-			    ),
-			),
-		     );
-		     $loop = new WP_Query($args);
-		     if($loop->have_posts()) {
-
-			echo '<ul>';
-			while($loop->have_posts()) : $loop->the_post();
-
-			    echo '<li><a href="'.get_permalink().'">'.get_the_title().'</a></li>';
-			endwhile;
-			echo '</ul>';
-		     }
-		    // end second level
-	    }
-	    echo '</ul>';
-	}
-
-}
-
-add_shortcode( 'course_list' , 'insert_course_list' );
-*/
-
-
-
-/* *********************************************
 *  Shortcode to insert a form for adding new course analysis from frontend
 ********************************************* */
 

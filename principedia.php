@@ -32,6 +32,22 @@ include($dir.'lib/learning_strategy_type.php');
 include($dir.'lib/course_type.php');
 include($dir.'lib/shortcodes.php');
 
+
+
+/****************************************************
+* Include class for custom widget and initalize
+****************************************************/
+
+function principedia_register_widget() { 
+  register_widget( 'Principedia_Widget' );
+}
+
+include($dir.'widgets/course_analysis_nav.php');
+add_action( 'widgets_init', 'principedia_register_widget' );
+
+
+
+
 /****************************************************
 * Add the custom types to the site search results
 ****************************************************/
