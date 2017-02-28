@@ -37,12 +37,12 @@ The three main types of content in Principedia are interrelated. While editing a
 
 ##Step By Step Installation##
 
-Install Wordpress if you don’t already have an installation. 
-Download and install a theme.
-Download, install, and activate the Principedia plugin. 
-Create a page titled “Course Analysis List” and add the shortcode [course_analysis_list] in the text field. Click Publish.  (Nothing will appear on this page UNTIL a Course Analysis is created).
-Create a page titled “Learning Strategies” and add the shortcode [strategy_list] in the text field. Click Publish.  (Nothing will appear on this page UNTIL a Learning Strategy is created).
-Create a page titled “Course Analysis Entry” and add the shortcode [new_course_analysis_form] in the text field. Click Publish. A page will be created where anyone can add a new course analysis using form fields. 
+- Install Wordpress if you don’t already have an installation. 
+- Download and install a theme.
+- Download, install, and activate the Principedia plugin. 
+- Create a page titled “Course Analysis List” and add the shortcode [course_analysis_list] in the text field. Click Publish.  (Nothing will appear on this page UNTIL a Course Analysis is created).
+- Create a page titled “Learning Strategies” and add the shortcode [strategy_list] in the text field. Click Publish.  (Nothing will appear on this page UNTIL a Learning Strategy is created).
+- Create a page titled “Course Analysis Entry” and add the shortcode [new_course_analysis_form] in the text field. Click Publish. A page will be created where anyone can add a new course analysis using form fields. 
 Under General Settings in the WordPress dashboard, you can change the name of your site.  Under Appearance in the dashboard, you can upload your own logo / image. 
 
 ##Suggestions##
