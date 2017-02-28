@@ -15,7 +15,7 @@ Posts are generally used for news items and announcements. Pages are used for st
 
 * Courses - Course pages contain information about the course more generally (PSY101), as opposed to a specific instance of a course (PSY101 Fall 2016)
 
-* Strategies - *Strategies are pages that contain information about general strategies for effective learning. These can be linked to from individual course analyses.
+* Strategies - Strategies are pages that contain information about general strategies for effective learning. These can be linked to from individual course analyses.
 
 
 ##Choosing a theme##
