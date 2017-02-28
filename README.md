@@ -5,8 +5,6 @@
 
 Principedia is a Wordpress plugin that provides a basic framework for the creation of a website styled after the Principedia project at Princeton University.
 
-#Documentation#
-
 ##Posts, Pages, and other Content Types##
 
 
