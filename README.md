@@ -52,8 +52,11 @@ You don't have to create new departments as departments and courses will be auto
 ## Shortcodes
 
 [course_analysis_select] This inserts a navigation form that allows users to select a department and then a specific course, after which they are provided with a list of course analyses for that course.
+
 [course_analysis_list] Inserts a department sorted list of course analyses
+
 [strategy_list] Inserts a list of Learning Strategies
+
 [new_course_analysis_form] Inserts a form allowing users to create a new course analysis
 
 ## Widgets
