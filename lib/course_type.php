@@ -173,6 +173,7 @@ function create_course_dept_taxonomy() {
 		// first we need a list of posts for a specific dept
 
 		$posts = get_posts(array(
+		    'posts_per_page' => -1,
 		    'post_type' => 'course',
 		    'tax_query' => array(
 			array(
