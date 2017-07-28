@@ -39,6 +39,7 @@ function insert_department_list() {
 
 	    	    wp_reset_query();
 		    $args = array('post_type' => 'course',
+			'orderby' => 'title', 'order' => 'ASC',
 			'tax_query' => array(
 			    array(
 				'taxonomy' => 'department',
