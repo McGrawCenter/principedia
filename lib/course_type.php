@@ -91,7 +91,9 @@ function principedia_add_ca_list( $content ) {
 	$args =  array( 'numberposts'	=> -1,'post_type' => 'principedia','meta_key' => 'principedia_course','meta_value' => $post->post_title );
 	$analyses =  get_posts($args);
 	foreach($analyses as $analysis) {
-	   $content .=  "<li><a href='{$analysis->guid}'>{$analysis->post_title}</a></li>";
+	   $semester = get_post_meta( $analysis->ID, 'principedia_semester' );
+	   $year = get_post_meta( $analysis->ID, 'principedia_year' );
+	   $content .=  "<li><a href='{$analysis->guid}'>{$analysis->post_title}</a> {$semester[0]} {$year[0]}</li>";
 	}
 	$content .=  '</ul>';
 
