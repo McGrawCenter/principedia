@@ -92,7 +92,7 @@ jQuery( document ).ready(function() {
      var target_id = jQuery(this).attr('rel');
      jQuery('#learning-strategy-link-popup-content').html('');
      jQuery.ajax({
-        url: 'http://etcpanel.princeton.edu/principedia/wp-json/wp/v2/strategy/'+target_id,
+        url: principedia_data.site_url+'/wp-json/wp/v2/strategy/'+target_id,
         dataType: 'json',
         type: 'GET',
         success: function(data) {
