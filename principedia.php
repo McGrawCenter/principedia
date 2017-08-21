@@ -11,6 +11,8 @@
 
 function principedia_scripts(){
     wp_register_script( 'principedia', plugin_dir_url( __FILE__ ) . 'js/principedia.js', array( 'jquery' ));
+    $js_data = array( 'site_url' => site_url());
+    wp_localize_script( 'principedia', 'principedia_data', $js_data );
     wp_enqueue_script( 'principedia' );
     wp_enqueue_style( 'principedia-css', plugin_dir_url( __FILE__ ) . 'css/style.css' );
 
