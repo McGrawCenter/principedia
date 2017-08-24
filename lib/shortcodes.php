@@ -38,8 +38,7 @@ function insert_department_list() {
 		    // level 2 - list of courses in that department
 
 	    	    wp_reset_query();
-		    $args = array('post_type' => 'course',
-			'orderby' => 'title', 'order' => 'ASC',
+		    $args = array('post_type' => 'course', 'orderby' => 'title', 'order' => 'ASC', 'posts_per_page' => -1,
 			'tax_query' => array(
 			    array(
 				'taxonomy' => 'department',
