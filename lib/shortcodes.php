@@ -146,9 +146,6 @@ add_shortcode( 'new_course_analysis_form' , 'insert_new_course_analysis_form' );
 ********************************************* */
 
 function insert_strategies_list() {
-
-
-
 	require_once(ABSPATH . "wp-admin/includes/taxonomy.php");
 
 	$parent_term = get_term_by( 'name', 'Learning Strategy', 'category' );
@@ -163,7 +160,9 @@ function insert_strategies_list() {
 
 		echo '<li>' . $term->name . '</li>';
 	    	    wp_reset_query();
-		    $args = array('post_type' => 'strategy',
+		    $args = array(
+			'post_type' => 'strategy',
+			'posts_per_page' => '-1',
 			'orderby' => 'title',
 			'order'   => 'ASC',
 			'tax_query' => array(
