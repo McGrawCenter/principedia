@@ -169,7 +169,7 @@ function insert_strategies_list() {
 			    array(
 				'taxonomy' => 'category',
 				'field' => 'slug',
-				'terms' => $term->name
+				'terms' => $term->slug
 			    ),
 			),
 		     );
