@@ -61,3 +61,6 @@ You don't have to create new departments as departments and courses will be auto
 
 ## Widgets
 The plugin installs a widget called ‘Course Analysis Navigation’. This is a copy of the course_analysis_select shortcode above, but in widget form. The widget allows users to select a course analysis by first selecting the department from a dropdown menu and then selecting a course offering from that department.
+
+## License and disclaimer
+This software is offered free for use and "as-is" under a Creative Commons Attribution Share Alike 4.0 license. No support will be provided by the software developer or by Princeton University and Princeton University is not responsible for any issues that may arise from the use of this software.
